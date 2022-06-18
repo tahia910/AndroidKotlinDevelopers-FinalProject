@@ -1,4 +1,4 @@
-package com.example.android.nextreminder
+package com.example.android.nextreminder.ui
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.android.nextreminder.R
 import com.example.android.nextreminder.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
