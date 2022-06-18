@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Next Reminder</string>
+    <string name="title_home">Search</string>
+    <string name="title_bookmark">Bookmark</string>
+</resources>
