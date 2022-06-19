@@ -25,7 +25,7 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.homeSearchButton.setOnClickListener {
-            val keywords = binding.homeTextField.editText?.text.toString()
+            val keywords = binding.homeTextField.editText?.text?.toString()
             if (keywords.isNullOrBlank()) return@setOnClickListener
             viewModel.getSimilarMedia(keywords)
         }

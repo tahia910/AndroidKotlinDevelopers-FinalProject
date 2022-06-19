@@ -10,6 +10,10 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: SimilarRepository) : ViewModel() {
 
+    private val _queryString = MutableLiveData<String>()
+    val queryString: LiveData<String>
+        get() = _queryString
+
     private val _resultList = MutableLiveData<List<SimilarDTO>>()
     val resultList: LiveData<List<SimilarDTO>>
         get() = _resultList
@@ -17,7 +21,8 @@ class HomeViewModel(private val repository: SimilarRepository) : ViewModel() {
     fun getSimilarMedia(keywords: String) {
         viewModelScope.launch {
             val result = repository.getSimilarMedia(keywords)
-            _resultList.postValue(result)
+            _queryString.postValue(result.first)
+            _resultList.postValue(result.second)
             _moveToResult.postValue(true)
         }
     }

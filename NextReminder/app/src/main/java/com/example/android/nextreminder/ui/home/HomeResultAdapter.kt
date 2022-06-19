@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.android.nextreminder.data.SimilarDTO
 import com.example.android.nextreminder.databinding.ListItemBinding
 
-class HomeResultAdapter : ListAdapter<SimilarDTO, HomeResultAdapter.ViewHolder>(DiffCallback) {
+class HomeResultAdapter(private val clickListener: ItemClickListener) :
+    ListAdapter<SimilarDTO, HomeResultAdapter.ViewHolder>(DiffCallback) {
 
     companion object DiffCallback : DiffUtil.ItemCallback<SimilarDTO>() {
         override fun areContentsTheSame(oldItem: SimilarDTO, newItem: SimilarDTO): Boolean {
@@ -25,12 +26,13 @@ class HomeResultAdapter : ListAdapter<SimilarDTO, HomeResultAdapter.ViewHolder>(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(clickListener, getItem(position))
     }
 
     class ViewHolder(private var binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(dtoItem: SimilarDTO) {
+        fun bind(listener: ItemClickListener, dtoItem: SimilarDTO) {
             binding.similarItem = dtoItem
+            binding.clickListener = listener
             binding.executePendingBindings()
         }
 
@@ -42,4 +44,8 @@ class HomeResultAdapter : ListAdapter<SimilarDTO, HomeResultAdapter.ViewHolder>(
             }
         }
     }
+}
+
+class ItemClickListener(val clickListener: (item: SimilarDTO) -> Unit) {
+    fun onClick(item: SimilarDTO) = clickListener(item)
 }

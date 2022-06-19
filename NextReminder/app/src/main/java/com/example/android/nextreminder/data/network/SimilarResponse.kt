@@ -21,14 +21,12 @@ data class SimilarItem(
     val name: String,
     @Json(name = "Type")
     val type: String,
-    @Json(name = "mTeaser")
+    @Json(name = "wTeaser")
     val description: String? = null,
     @Json(name = "wUrl")
     val wikipediaUrl: String? = null,
     @Json(name = "yUrl")
-    val youtubeVideoUrl: String? = null,
-    @Json(name = "iID")
-    val youtubeVideoId: String? = null
+    val youtubeVideoUrl: String? = null
 ) {
     fun toDTO(): SimilarDTO {
         return SimilarDTO(

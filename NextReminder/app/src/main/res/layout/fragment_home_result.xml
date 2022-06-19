@@ -12,7 +12,17 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="?attr/actionBarSize">
+
+        <TextView
+            style="@style/TitleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:text="@{@string/home_result_title(viewModel.queryString)}"
+            tools:text="@string/home_result_title"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/itemList"

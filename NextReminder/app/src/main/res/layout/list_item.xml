@@ -5,52 +5,103 @@
 
     <data>
 
+        <import type="android.text.TextUtils" />
+
         <variable
             name="similarItem"
             type="com.example.android.nextreminder.data.SimilarDTO" />
 
+        <variable
+            name="clickListener"
+            type="com.example.android.nextreminder.ui.home.ItemClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="8dp">
+        android:paddingVertical="12dp">
 
-        <TextView
-            android:id="@+id/itemTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@{similarItem.name}"
-            app:layout_constraintEnd_toStartOf="@id/itemType"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Title" />
-
-        <TextView
+        <ImageView
             android:id="@+id/itemType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{similarItem.type.name()}"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:contentDescription="@{@string/content_description_type(similarItem.type.name())}"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Music" />
+            app:tint="?colorPrimaryVariant"
+            app:typeIcon="@{similarItem.type}"
+            tools:src="@drawable/ic_book" />
+
+        <TextView
+            android:id="@+id/itemTitle"
+            style="@style/SubtitleStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:text="@{similarItem.name}"
+            app:layout_constraintEnd_toStartOf="@id/itemBookmark"
+            app:layout_constraintStart_toEndOf="@id/itemType"
+            app:layout_constraintTop_toTopOf="@id/itemType"
+            tools:text="Title" />
+
+        <ImageButton
+            android:id="@+id/itemBookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/content_description_bookmark"
+            android:foreground="?selectableItemBackground"
+            android:minWidth="42dp"
+            android:minHeight="42dp"
+            android:onClick="@{() -> clickListener.onClick(similarItem)}"
+            android:src="@drawable/ic_bookmark_border"
+            app:layout_constraintBottom_toBottomOf="@id/itemType"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/itemType"
+            app:tint="?colorSecondaryVariant" />
 
         <TextView
             android:id="@+id/itemDescription"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:maxLines="5"
             android:text="@{similarItem.description}"
-            app:layout_constraintStart_toStartOf="parent"
+            app:isGone="@{TextUtils.isEmpty(similarItem.description)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/itemTitle"
             app:layout_constraintTop_toBottomOf="@id/itemTitle"
-            tools:text="Description" />
+            tools:text="@string/long_placeholder" />
 
-        <TextView
+        <Button
+            android:id="@+id/itemWikipedia"
+            style="@style/UrlButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{similarItem.wikipediaUrl}"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginHorizontal="12dp"
+            android:text="@string/detail_wikipedia"
+            app:isGone="@{TextUtils.isEmpty(similarItem.wikipediaUrl)}"
+            app:layout_constraintStart_toStartOf="@id/itemTitle"
             app:layout_constraintTop_toBottomOf="@id/itemDescription"
-            tools:text="Wiki" />
+            app:url="@{similarItem.wikipediaUrl}" />
+
+        <Button
+            android:id="@+id/itemYoutube"
+            style="@style/UrlButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:text="@string/detail_youtube"
+            app:isGone="@{TextUtils.isEmpty(similarItem.youtubeVideoUrl)}"
+            app:layout_constraintStart_toEndOf="@id/itemWikipedia"
+            app:layout_constraintTop_toTopOf="@id/itemWikipedia"
+            app:url="@{similarItem.youtubeVideoUrl}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

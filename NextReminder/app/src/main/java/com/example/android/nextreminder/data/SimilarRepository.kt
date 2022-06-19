@@ -2,14 +2,20 @@ package com.example.android.nextreminder.data
 
 import com.example.android.nextreminder.data.network.SimilarService
 
-class SimilarRepository (private val similarApi: SimilarService) {
+class SimilarRepository(private val similarApi: SimilarService) {
 
-    suspend fun getSimilarMedia(keyword: String): List<SimilarDTO> {
-        val dtoList = mutableListOf<SimilarDTO>()
+    suspend fun getSimilarMedia(keyword: String): Pair<String, List<SimilarDTO>> {
+        val queryList = mutableListOf<String>()
+        val resultList = mutableListOf<SimilarDTO>()
+
         val response = similarApi.getSuggestions(query = keyword).result
-        response.resultList?.forEach { item ->
-            dtoList.add(item.toDTO())
+
+        response.keywordList.forEach {
+            queryList.add(it.name)
         }
-        return dtoList
+        response.resultList?.forEach { item ->
+            resultList.add(item.toDTO())
+        }
+        return Pair(queryList.joinToString(", "), resultList)
     }
 }

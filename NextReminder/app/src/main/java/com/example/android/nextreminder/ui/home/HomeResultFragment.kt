@@ -21,7 +21,9 @@ class HomeResultFragment : Fragment() {
         binding = FragmentHomeResultBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.itemList.adapter = HomeResultAdapter()
+        binding.itemList.adapter = HomeResultAdapter(ItemClickListener { item ->
+            // TODO: bookmark
+        })
 
         return binding.root
     }
