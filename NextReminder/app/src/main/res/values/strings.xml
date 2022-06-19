@@ -18,9 +18,14 @@
     <string name="home_result_title">Result for: %1$s</string>
     <string name="detail_wikipedia"><u>Wikipedia</u></string>
     <string name="detail_youtube"><u>Youtube</u></string>
+    <string name="home_result_search">Search again</string>
 
     <string name="content_description_type">Type: %1$s</string>
     <string name="content_description_bookmark">Bookmark</string>
+
+    <string name="error_empty_keyword">Can\'t search without keyword(s)!</string>
+    <string name="error_network">Network error. Please try again.</string>
+    <string name="error_empty_result">Sorry, no results found… \n Try searching something else?</string>
 
     <string name="long_placeholder">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
 </resources>

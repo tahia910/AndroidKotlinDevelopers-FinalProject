@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.android.nextreminder.databinding.FragmentHomeResultBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -25,6 +26,11 @@ class HomeResultFragment : Fragment() {
             // TODO: bookmark
         })
 
+        viewModel.moveToHome.observe(viewLifecycleOwner) {
+            if (it == false) return@observe
+            findNavController().navigateUp()
+            viewModel.moveFinished()
+        }
         return binding.root
     }
 }
