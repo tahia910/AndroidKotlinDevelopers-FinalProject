@@ -1,9 +1,9 @@
 package com.example.android.nextreminder.di
 
 import android.app.Application
-import com.example.android.nextreminder.data.ApiClient
+import com.example.android.nextreminder.data.network.ApiClient
 import com.example.android.nextreminder.data.SimilarRepository
-import com.example.android.nextreminder.data.SimilarService
+import com.example.android.nextreminder.data.network.SimilarService
 import com.example.android.nextreminder.ui.home.HomeViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel

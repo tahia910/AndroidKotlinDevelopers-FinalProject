@@ -1,5 +1,7 @@
-package com.example.android.nextreminder.data
+package com.example.android.nextreminder.data.network
 
+import com.example.android.nextreminder.data.SimilarDTO
+import com.example.android.nextreminder.data.SimilarItemTypeEnum
 import com.squareup.moshi.Json
 
 data class SimilarResponse(
@@ -27,4 +29,14 @@ data class SimilarItem(
     val youtubeVideoUrl: String? = null,
     @Json(name = "iID")
     val youtubeVideoId: String? = null
-)
+) {
+    fun toDTO(): SimilarDTO {
+        return SimilarDTO(
+            name = name,
+            type = SimilarItemTypeEnum.getType(type),
+            description = description ?: "",
+            wikipediaUrl = wikipediaUrl ?: "",
+            youtubeVideoUrl = youtubeVideoUrl ?: ""
+        )
+    }
+}

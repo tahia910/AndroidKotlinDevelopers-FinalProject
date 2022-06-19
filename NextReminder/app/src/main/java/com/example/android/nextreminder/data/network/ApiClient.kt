@@ -1,4 +1,4 @@
-package com.example.android.nextreminder.data
+package com.example.android.nextreminder.data.network
 
 import com.example.android.nextreminder.BuildConfig
 import com.squareup.moshi.Moshi

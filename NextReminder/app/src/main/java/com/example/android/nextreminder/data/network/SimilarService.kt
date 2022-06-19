@@ -1,4 +1,4 @@
-package com.example.android.nextreminder.data
+package com.example.android.nextreminder.data.network
 
 import retrofit2.http.GET
 import retrofit2.http.Query

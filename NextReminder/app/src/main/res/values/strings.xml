@@ -2,4 +2,15 @@
     <string name="app_name">Next Reminder</string>
     <string name="title_home">Search</string>
     <string name="title_bookmark">Bookmark</string>
+
+    <string name="home_title">What media did you enjoy recently?</string>
+    <string name="home_subtitle">Discover music, movies, TV shows, books, games and podcasts based on what you like.</string>
+    <string name="search">Search</string>
+    <string name="search_helper">You can add several names by separating them with a comma.</string>
+    <string name="chip_music">Music</string>
+    <string name="chip_movies">Movies</string>
+    <string name="chip_tvshows">TV Shows</string>
+    <string name="chip_books">Books</string>
+    <string name="chip_games">Games</string>
+    <string name="chip_podcasts">Podcasts</string>
 </resources>
