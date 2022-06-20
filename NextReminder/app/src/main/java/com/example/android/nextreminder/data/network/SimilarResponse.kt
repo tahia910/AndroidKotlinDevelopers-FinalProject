@@ -28,7 +28,7 @@ data class SimilarItem(
     @Json(name = "yUrl")
     val youtubeVideoUrl: String? = null
 ) {
-    fun toDTO(): SimilarDTO {
+    fun toDto(): SimilarDTO {
         return SimilarDTO(
             name = name,
             type = SimilarItemTypeEnum.getType(type),
@@ -37,4 +37,8 @@ data class SimilarItem(
             youtubeVideoUrl = youtubeVideoUrl ?: ""
         )
     }
+}
+
+fun List<SimilarItem>.toDtoList(): List<SimilarDTO> {
+    return map { it.toDto() }
 }

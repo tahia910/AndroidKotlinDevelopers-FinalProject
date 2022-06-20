@@ -1,5 +1,6 @@
 package com.example.android.nextreminder.data.local
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -10,13 +11,16 @@ import androidx.room.Query
 interface BookmarkDao {
 
     @Query("SELECT * FROM similar_bookmark ORDER BY name ASC")
-    suspend fun getAllBookmarks(): List<SimilarEntity>
+    fun getAllBookmarks(): LiveData<List<SimilarEntity>>
 
     @Query("SELECT EXISTS(SELECT * FROM similar_bookmark WHERE name = :name AND type = :type AND description = :description)")
     suspend fun isBookmarked(name: String, type: String, description: String): Boolean
 
     @Insert(onConflict = REPLACE)
     suspend fun insertBookmark(vararg similarEntity: SimilarEntity)
+
+    @Query("SELECT * FROM similar_bookmark WHERE name = :name AND type = :type AND description = :description")
+    suspend fun getBookmark(name: String, type: String, description: String): SimilarEntity
 
     @Delete
     suspend fun deleteBookmark(similarEntity: SimilarEntity)
@@ -30,5 +34,11 @@ interface BookmarkDao {
             }
         }
         return result
+    }
+
+    suspend fun findAndDeleteBookmark(item: SimilarEntity): SimilarEntity {
+        val itemInDb = getBookmark(item.name, item.type, item.description)
+        deleteBookmark(itemInDb)
+        return itemInDb
     }
 }
