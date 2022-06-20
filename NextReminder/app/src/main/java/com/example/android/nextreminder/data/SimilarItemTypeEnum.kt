@@ -18,15 +18,7 @@ enum class SimilarItemTypeEnum(val type: String) {
 
     companion object {
         fun getType(type: String): SimilarItemTypeEnum {
-            return when (type) {
-                MOVIE.type -> MOVIE
-                TVSHOW.type -> TVSHOW
-                BOOK.type -> BOOK
-                AUTHOR.type -> AUTHOR
-                GAME.type -> GAME
-                PODCAST.type -> PODCAST
-                else -> MUSIC
-            }
+            return values().firstOrNull { it.type == type } ?: MUSIC
         }
     }
 }

@@ -41,6 +41,27 @@ class HomeViewModel(private val repository: SimilarRepository) : ViewModel() {
         }
     }
 
+    fun addBookmark(item: SimilarDTO) {
+        viewModelScope.launch {
+            val result = repository.addBookmark(item)
+            when (result) {
+                is Result.Success<*> -> { /** Display toast for both cases **/ }
+                is Result.Error -> {}
+            }
+        }
+    }
+
+    fun removeBookmark(item: SimilarDTO) {
+        viewModelScope.launch {
+            val result = repository.removeBookmark(item)
+            when (result) {
+                is Result.Success<*> -> { /** Display toast for both cases **/ }
+                is Result.Error -> {}
+            }
+        }
+    }
+
+    // TODO: timing or don't use query string?
     fun searchAgain() {
         _moveToHome.postValue(true)
         _queryString.postValue("")

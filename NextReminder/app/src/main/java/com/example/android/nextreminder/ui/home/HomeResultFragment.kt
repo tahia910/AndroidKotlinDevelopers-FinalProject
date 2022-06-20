@@ -23,7 +23,8 @@ class HomeResultFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         binding.itemList.adapter = HomeResultAdapter(ItemClickListener { item ->
-            // TODO: bookmark
+            // TODO: check for bookmark status
+            viewModel.addBookmark(item)
         })
 
         viewModel.moveToHome.observe(viewLifecycleOwner) {
