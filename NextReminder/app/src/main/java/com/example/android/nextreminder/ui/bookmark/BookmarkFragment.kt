@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.android.nextreminder.R
 import com.example.android.nextreminder.databinding.FragmentBookmarkBinding
 import com.example.android.nextreminder.ui.home.HomeResultAdapter
 import com.example.android.nextreminder.ui.home.ItemClickListener
@@ -38,6 +40,12 @@ class BookmarkFragment : Fragment() {
                 }
                 .show()
             viewModel.snackBarDisplayed()
+        }
+
+        viewModel.displayErrorToast.observe(viewLifecycleOwner) { messageStringResource ->
+            if (messageStringResource == null) return@observe
+            Toast.makeText(requireContext(), messageStringResource, Toast.LENGTH_SHORT).show()
+            viewModel.toastDisplayed()
         }
 
         binding.goSearchButton.setOnClickListener {

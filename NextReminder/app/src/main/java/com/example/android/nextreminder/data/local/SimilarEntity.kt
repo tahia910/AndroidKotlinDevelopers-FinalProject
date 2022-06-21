@@ -21,7 +21,8 @@ data class SimilarEntity(
             type = SimilarItemTypeEnum.getType(type),
             description = description,
             wikipediaUrl = wikipediaUrl,
-            youtubeVideoUrl = youtubeVideoUrl
+            youtubeVideoUrl = youtubeVideoUrl,
+            isBookmarked = true // Since it comes from the database, it will always be true
         )
     }
 }

@@ -17,7 +17,7 @@ class HomeResultAdapter(private val clickListener: ItemClickListener) :
         }
 
         override fun areItemsTheSame(oldItem: SimilarDTO, newItem: SimilarDTO): Boolean {
-            return oldItem === newItem
+            return oldItem == newItem
         }
     }
 

@@ -26,6 +26,8 @@
     <string name="error_empty_keyword">Can\'t search without keyword(s)!</string>
     <string name="error_network">Network error. Please try again.</string>
     <string name="error_empty_result">Sorry, no results found… \n Try searching something else?</string>
+    <string name="error_removing_bookmark">Error removing the bookmark</string>
+    <string name="error_adding_back_bookmark">Error adding back the bookmark</string>
     <string name="no_bookmark">You haven\'t bookmarked anything yet. \n Try searching for suggestions to bookmark?</string>
 
     <string name="long_placeholder">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>

@@ -1,45 +1,19 @@
 package com.example.android.nextreminder.ui.bookmark
 
 import androidx.lifecycle.*
+import com.example.android.nextreminder.R
 import com.example.android.nextreminder.data.SimilarDTO
 import com.example.android.nextreminder.data.SimilarRepository
 import com.example.android.nextreminder.data.local.entityToDtoList
-import kotlinx.coroutines.launch
 import com.example.android.nextreminder.data.network.Result
+import kotlinx.coroutines.launch
 
 class BookmarkViewModel(private val repository: SimilarRepository) : ViewModel() {
 
-    private val loading = MutableLiveData(false)
-
-//    private val _bookmarkList = MutableLiveData<List<SimilarDTO>>()
-//    val bookmarkList: LiveData<List<SimilarDTO>>
-//        get() = _bookmarkList
-//
-//    init {
-//        getAllBookmarks()
-//    }
-//
-//    private fun getAllBookmarks() {
-//        loading.postValue(true)
-//        viewModelScope.launch {
-//            val result = repository.getAllBookmarks()
-//            when (result) {
-//                is Result.Success<*> -> {
-//                    val data = (result.data as? List<SimilarDTO>) ?: return@launch
-//                    _bookmarkList.postValue(data)
-//                    loading.postValue(false)
-//                }
-//                is Result.Error -> {
-//                    loading.postValue(false)
-//                    // TODO: display error
-//                }
-//            }
-//        }
-//    }
-
-    val bookmarkList: LiveData<List<SimilarDTO>> = Transformations.map(repository.getAllBookmarks()) {
-        it.entityToDtoList()
-    }
+    val bookmarkList: LiveData<List<SimilarDTO>> =
+        Transformations.map(repository.getAllBookmarks()) {
+            it.entityToDtoList()
+        }
 
     fun removeBookmark(item: SimilarDTO) {
         viewModelScope.launch {
@@ -48,7 +22,9 @@ class BookmarkViewModel(private val repository: SimilarRepository) : ViewModel()
                 is Result.Success<*> -> {
                     _displayBookmarkDeletedSnackBar.postValue(item)
                 }
-                is Result.Error -> {}
+                is Result.Error -> {
+                    _displayErrorToast.postValue(R.string.error_removing_bookmark)
+                }
             }
         }
     }
@@ -56,19 +32,22 @@ class BookmarkViewModel(private val repository: SimilarRepository) : ViewModel()
     fun addBackBookmark(item: SimilarDTO) {
         viewModelScope.launch {
             val result = repository.addBookmark(item)
-            when (result) {
-                is Result.Success<*> -> {
-                    // TODO: Display confirmation toast
-                }
-                is Result.Error -> {}
+            if (result is Result.Error) {
+                _displayErrorToast.postValue(R.string.error_adding_back_bookmark)
             }
         }
     }
 
     private val _displayBookmarkDeletedSnackBar = MutableLiveData<SimilarDTO?>()
     val displayBookmarkDeletedSnackBar: LiveData<SimilarDTO?> = _displayBookmarkDeletedSnackBar
+    private val _displayErrorToast = MutableLiveData<Int?>()
+    val displayErrorToast: LiveData<Int?> = _displayErrorToast
 
     fun snackBarDisplayed() {
         _displayBookmarkDeletedSnackBar.value = null
+    }
+
+    fun toastDisplayed() {
+        _displayErrorToast.value = null
     }
 }

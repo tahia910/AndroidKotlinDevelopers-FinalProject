@@ -7,7 +7,8 @@ data class SimilarDTO(
     val type: SimilarItemTypeEnum,
     val description: String,
     val wikipediaUrl: String,
-    val youtubeVideoUrl: String
+    val youtubeVideoUrl: String,
+    var isBookmarked: Boolean = false
 ) {
     fun toEntity(): SimilarEntity {
         return SimilarEntity(
