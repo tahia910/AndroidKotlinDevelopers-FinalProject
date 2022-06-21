@@ -29,7 +29,8 @@ class HomeFragment : Fragment() {
         binding.homeSearchButton.setOnClickListener {
             val keywords = binding.homeTextField.editText?.text?.toString()
             if (keywords.isNullOrBlank()) {
-                Toast.makeText(requireContext(), R.string.error_empty_keyword, Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), R.string.error_empty_keyword, Toast.LENGTH_SHORT)
+                    .show()
                 return@setOnClickListener
             }
             viewModel.getSimilarMedia(keywords)
@@ -43,9 +44,9 @@ class HomeFragment : Fragment() {
             viewModel.moveFinished()
         }
 
-        viewModel.displayErrorToast.observe(viewLifecycleOwner) {
-            if (it == false) return@observe
-            Toast.makeText(requireContext(), R.string.error_network, Toast.LENGTH_SHORT).show()
+        viewModel.displayErrorToast.observe(viewLifecycleOwner) { messageStringResource ->
+            if (messageStringResource == null) return@observe
+            Toast.makeText(requireContext(), messageStringResource, Toast.LENGTH_SHORT).show()
             viewModel.toastDisplayed()
         }
 

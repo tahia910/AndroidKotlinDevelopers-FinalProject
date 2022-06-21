@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 class BookmarkViewModel(private val repository: SimilarRepository) : ViewModel() {
 
     val bookmarkList: LiveData<List<SimilarDTO>> =
-        Transformations.map(repository.getAllBookmarks()) {
+        Transformations.map(repository.getAllBookmarksLiveData()) {
             it.entityToDtoList()
         }
 
@@ -33,7 +33,7 @@ class BookmarkViewModel(private val repository: SimilarRepository) : ViewModel()
         viewModelScope.launch {
             val result = repository.addBookmark(item)
             if (result is Result.Error) {
-                _displayErrorToast.postValue(R.string.error_adding_back_bookmark)
+                _displayErrorToast.postValue(R.string.error_adding_bookmark)
             }
         }
     }

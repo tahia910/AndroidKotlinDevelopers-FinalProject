@@ -20,3 +20,7 @@ data class SimilarDTO(
         )
     }
 }
+
+fun SimilarDTO.isSameAs(item: SimilarDTO): Boolean {
+    return this.name == item.name && this.type == item.type && this.description == item.description
+}

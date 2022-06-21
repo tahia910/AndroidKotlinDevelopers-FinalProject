@@ -1,7 +1,6 @@
 package com.example.android.nextreminder.data
 
 import com.example.android.nextreminder.data.local.BookmarkDao
-import com.example.android.nextreminder.data.local.entityToDtoList
 import com.example.android.nextreminder.data.network.Result
 import com.example.android.nextreminder.data.network.SimilarService
 import com.example.android.nextreminder.data.network.toDtoList
@@ -18,22 +17,21 @@ class SimilarRepository(
             val queryList = response.keywordList.map { it.name }
             val resultList = response.resultList?.toDtoList() ?: emptyList()
 
+            val bookmarkList = bookmarkDao.getAlreadyBookmarkedFromList(resultList)
+
+            if (!bookmarkList.isNullOrEmpty()) {
+                resultList.map { item ->
+                    if (bookmarkList.contains(item)) item.isBookmarked = true
+                }
+            }
+
             Result.Success(Pair(queryList.joinToString(", "), resultList))
         } catch (ex: Exception) {
             Result.Error(ex.localizedMessage)
         }
     }
 
-//    suspend fun getAllBookmarks(): Result<List<SimilarDTO>> {
-//        return try {
-//            val list = bookmarkDao.getAllBookmarks()
-//            Result.Success(list.entityToDtoList())
-//        } catch (ex: Exception) {
-//            Result.Error(ex.localizedMessage)
-//        }
-//    }
-
-    fun getAllBookmarks() = bookmarkDao.getAllBookmarks()
+    fun getAllBookmarksLiveData() = bookmarkDao.getAllBookmarksLiveData()
 
     suspend fun addBookmark(item: SimilarDTO): Result<SimilarDTO> {
         return try {
@@ -46,7 +44,7 @@ class SimilarRepository(
 
     suspend fun removeBookmark(item: SimilarDTO): Result<SimilarDTO> {
         return try {
-            bookmarkDao.findAndDeleteBookmark(item.toEntity())
+            bookmarkDao.findAndDeleteBookmark(item)
             Result.Success(item)
         } catch (ex: Exception) {
             Result.Error(ex.localizedMessage)

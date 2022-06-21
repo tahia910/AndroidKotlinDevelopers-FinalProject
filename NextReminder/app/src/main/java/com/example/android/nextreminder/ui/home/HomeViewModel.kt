@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.android.nextreminder.R
 import com.example.android.nextreminder.data.SimilarDTO
 import com.example.android.nextreminder.data.SimilarRepository
+import com.example.android.nextreminder.data.isSameAs
 import com.example.android.nextreminder.data.network.Result
 import kotlinx.coroutines.launch
 
@@ -18,6 +20,13 @@ class HomeViewModel(private val repository: SimilarRepository) : ViewModel() {
     private val _resultList = MutableLiveData<List<SimilarDTO>>()
     val resultList: LiveData<List<SimilarDTO>>
         get() = _resultList
+
+//    val bookmarkList: LiveData<List<SimilarDTO>> =
+//        Transformations.map(repository.getAllBookmarksLiveData()) {
+//            it.entityToDtoList()
+//        }
+
+    val notifyAdapter = MutableLiveData(false)
 
     val loading = MutableLiveData(false)
 
@@ -35,30 +44,50 @@ class HomeViewModel(private val repository: SimilarRepository) : ViewModel() {
                 }
                 is Result.Error -> {
                     loading.postValue(false)
-                    _displayErrorToast.postValue(true)
+                    _displayErrorToast.postValue(R.string.error_network)
                 }
             }
         }
     }
 
-    fun addBookmark(item: SimilarDTO) {
+    private fun updateResultList(item: SimilarDTO) {
+        _resultList.value?.map {
+            if (it.isSameAs(item)) it.isBookmarked = !it.isBookmarked
+        }
+        notifyAdapter.postValue(true)
+    }
+
+    fun adapterNotified() {
+        notifyAdapter.postValue(false)
+    }
+
+    fun addOrRemoveBookmark(item: SimilarDTO) {
         viewModelScope.launch {
-            val result = repository.addBookmark(item)
+            val result = if (item.isBookmarked) {
+                repository.removeBookmark(item)
+            } else {
+                repository.addBookmark(item)
+            }
+
             when (result) {
-                is Result.Success<*> -> { /** Display toast for both cases **/ }
-                is Result.Error -> {}
+                is Result.Success<*> -> {
+                    // TODO: Display SnackBar for both cases + suggest to move to bookmark list?
+                    updateResultList(item)
+                }
+                is Result.Error -> {
+                    displayErrorToast(item.isBookmarked)
+                }
             }
         }
     }
 
-    fun removeBookmark(item: SimilarDTO) {
-        viewModelScope.launch {
-            val result = repository.removeBookmark(item)
-            when (result) {
-                is Result.Success<*> -> { /** Display toast for both cases **/ }
-                is Result.Error -> {}
-            }
+    private fun displayErrorToast(wasOriginallyBookmarked: Boolean) {
+        val errorMessage = if (wasOriginallyBookmarked) {
+            R.string.error_removing_bookmark
+        } else {
+            R.string.error_adding_bookmark
         }
+        _displayErrorToast.postValue(errorMessage)
     }
 
     // TODO: timing or don't use query string?
@@ -72,8 +101,8 @@ class HomeViewModel(private val repository: SimilarRepository) : ViewModel() {
     val moveToResult: LiveData<Boolean> = _moveToResult
     private val _moveToHome = MutableLiveData(false)
     val moveToHome: LiveData<Boolean> = _moveToHome
-    private val _displayErrorToast = MutableLiveData(false)
-    val displayErrorToast: LiveData<Boolean> = _displayErrorToast
+    private val _displayErrorToast = MutableLiveData<Int?>()
+    val displayErrorToast: LiveData<Int?> = _displayErrorToast
 
     fun moveFinished() {
         _moveToResult.value = false
@@ -81,6 +110,6 @@ class HomeViewModel(private val repository: SimilarRepository) : ViewModel() {
     }
 
     fun toastDisplayed() {
-        _displayErrorToast.value = false
+        _displayErrorToast.postValue(null)
     }
 }

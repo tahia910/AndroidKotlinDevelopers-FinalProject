@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.android.nextreminder.databinding.FragmentHomeResultBinding
@@ -13,6 +14,7 @@ class HomeResultFragment : Fragment() {
 
     private val viewModel: HomeViewModel by sharedViewModel()
     private lateinit var binding: FragmentHomeResultBinding
+    private lateinit var adapter: HomeResultAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -22,16 +24,29 @@ class HomeResultFragment : Fragment() {
         binding = FragmentHomeResultBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.itemList.adapter = HomeResultAdapter(ItemClickListener { item ->
-            // TODO: check for bookmark status
-            viewModel.addBookmark(item)
+        adapter = HomeResultAdapter(ItemClickListener { item ->
+            viewModel.addOrRemoveBookmark(item)
         })
+        binding.itemList.adapter = adapter
+
+        viewModel.notifyAdapter.observe(viewLifecycleOwner) {
+            if (!it) return@observe
+            adapter.notifyDataSetChanged()
+            viewModel.adapterNotified()
+        }
 
         viewModel.moveToHome.observe(viewLifecycleOwner) {
-            if (it == false) return@observe
+            if (!it) return@observe
             findNavController().navigateUp()
             viewModel.moveFinished()
         }
+
+        viewModel.displayErrorToast.observe(viewLifecycleOwner) { messageStringResource ->
+            if (messageStringResource == null) return@observe
+            Toast.makeText(requireContext(), messageStringResource, Toast.LENGTH_SHORT).show()
+            viewModel.toastDisplayed()
+        }
+
         return binding.root
     }
 }
