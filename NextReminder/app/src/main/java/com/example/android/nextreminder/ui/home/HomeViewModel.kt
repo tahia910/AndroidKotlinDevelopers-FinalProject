@@ -3,6 +3,7 @@ package com.example.android.nextreminder.ui.home
 import androidx.lifecycle.*
 import com.example.android.nextreminder.R
 import com.example.android.nextreminder.data.SimilarDTO
+import com.example.android.nextreminder.data.SimilarItemTypeEnum
 import com.example.android.nextreminder.data.SimilarRepository
 import com.example.android.nextreminder.data.isSameAs
 import com.example.android.nextreminder.data.local.entityToDtoList
@@ -11,6 +12,7 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: SimilarRepository) : ViewModel() {
 
+    // TODO: get from edit text
     private val _queryString = MutableLiveData<String>()
     val queryString: LiveData<String>
         get() = _queryString
@@ -26,17 +28,17 @@ class HomeViewModel(private val repository: SimilarRepository) : ViewModel() {
 
     val loading = MutableLiveData(false)
 
-    fun getSimilarMedia(keywords: String) {
+    fun getSimilarMedia(keywords: String, filter: SimilarItemTypeEnum) {
         loading.postValue(true)
         viewModelScope.launch {
-            val result = repository.getSimilarMedia(keywords)
+            val result = repository.getSimilarMediaList(keywords = keywords, filter = filter)
             when (result) {
                 is Result.Success<*> -> {
-                    val data = (result.data as? Pair<String, List<SimilarDTO>>) ?: return@launch
-                    _queryString.postValue(data.first)
-                    _resultList.postValue(data.second)
-                    _moveToResult.postValue(true)
                     loading.postValue(false)
+                    val data = (result.data as? List<SimilarDTO>) ?: return@launch
+
+                    _resultList.postValue(data)
+                    _moveToResult.postValue(true)
                 }
                 is Result.Error -> {
                     loading.postValue(false)
@@ -74,14 +76,10 @@ class HomeViewModel(private val repository: SimilarRepository) : ViewModel() {
             } else {
                 repository.addBookmark(item)
             }
+            // The result list will get updated through the bookmark list observer
 
-            when (result) {
-                is Result.Success<*> -> {
-                    // TODO: Display SnackBar for both cases + suggest to move to bookmark list?
-                }
-                is Result.Error -> {
-                    displayErrorToast(item.isBookmarked)
-                }
+            if (result is Result.Error) {
+                displayErrorToast(item.isBookmarked)
             }
         }
     }
@@ -95,10 +93,8 @@ class HomeViewModel(private val repository: SimilarRepository) : ViewModel() {
         _displayErrorToast.postValue(errorMessage)
     }
 
-    // TODO: timing or don't use query string?
     fun searchAgain() {
         _moveToHome.postValue(true)
-        _queryString.postValue("")
         _resultList.postValue(null)
     }
 

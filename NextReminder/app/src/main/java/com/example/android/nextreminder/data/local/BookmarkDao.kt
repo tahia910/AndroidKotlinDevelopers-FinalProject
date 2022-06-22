@@ -26,7 +26,7 @@ interface BookmarkDao {
     @Delete
     suspend fun deleteBookmark(similarEntity: SimilarEntity)
 
-    suspend fun getAlreadyBookmarkedFromList(list: List<SimilarDTO>): List<SimilarDTO>? {
+    suspend fun getAlreadyBookmarkedItemsFromList(list: List<SimilarDTO>): List<SimilarDTO>? {
         val result = mutableListOf<SimilarDTO>()
 
         list.forEach { item ->

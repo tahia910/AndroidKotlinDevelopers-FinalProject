@@ -8,6 +8,7 @@ interface SimilarService {
     @GET("similar")
     suspend fun getSuggestions(
         @Query("q") query: String,
+        @Query("type") type: String,
         // Get detailed response (not just name/type)
         @Query("info") verbose: Int = 1
     ): SimilarResponse

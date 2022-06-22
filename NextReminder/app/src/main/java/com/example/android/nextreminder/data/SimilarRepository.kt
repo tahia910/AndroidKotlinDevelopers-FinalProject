@@ -1,5 +1,6 @@
 package com.example.android.nextreminder.data
 
+import androidx.core.text.htmlEncode
 import com.example.android.nextreminder.data.local.BookmarkDao
 import com.example.android.nextreminder.data.network.Result
 import com.example.android.nextreminder.data.network.SimilarService
@@ -10,22 +11,39 @@ class SimilarRepository(
     private val bookmarkDao: BookmarkDao
 ) {
 
-    suspend fun getSimilarMedia(keyword: String): Result<Pair<String, List<SimilarDTO>>> {
+    /**
+     ** The keyword list is searched in TasteDive's database, and if one or several medias are
+     * found, they return similar medias with the same type.
+     * https://tastedive.com/read/api?ref=publicapis.dev
+     */
+    suspend fun getSimilarMediaList(keywords: String, filter: SimilarItemTypeEnum):
+            Result<List<SimilarDTO>> {
         return try {
-            val response = similarApi.getSuggestions(query = keyword).result
+            // Define the query and result type.
+            // The doc seems to imply that query and result types could be different,
+            // but after many experimentation, it doesn't seem to be true.
+            var query = ""
+            val keywordList = keywords.split(",")
+            keywordList.forEach { keyword ->
+                if (keyword.trim(' ').isNotBlank()) {
+                    // Format example: "movie:harry potter, movie:trainspotting"
+                    query += "${filter.type}:${keyword.trim(' ')}, "
+                }
+            }
+            query = query.trim(' ', ',').htmlEncode()
+            val response = similarApi.getSuggestions(query = query, filter.query).result
 
-            val queryList = response.keywordList.map { it.name }
-            val resultList = response.resultList?.toDtoList() ?: emptyList()
+            val resultList = response.resultList?.toDtoList() ?: return Result.Success(emptyList())
 
-            val bookmarkList = bookmarkDao.getAlreadyBookmarkedFromList(resultList)
-
+            // Update the bookmarks before returning the list to the ViewModel.
+            val bookmarkList = bookmarkDao.getAlreadyBookmarkedItemsFromList(resultList)
             if (!bookmarkList.isNullOrEmpty()) {
                 resultList.map { item ->
                     if (bookmarkList.contains(item)) item.isBookmarked = true
                 }
             }
 
-            Result.Success(Pair(queryList.joinToString(", "), resultList))
+            Result.Success(resultList)
         } catch (ex: Exception) {
             Result.Error(ex.localizedMessage)
         }

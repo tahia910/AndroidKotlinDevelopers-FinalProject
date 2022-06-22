@@ -17,7 +17,7 @@
         android:orientation="vertical">
 
         <TextView
-            style="@style/TitleStyle"
+            style="@style/LargeTitleStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="12dp"
@@ -35,6 +35,7 @@
             tools:listitem="@layout/list_item" />
 
         <TextView
+            style="@style/BodyStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"

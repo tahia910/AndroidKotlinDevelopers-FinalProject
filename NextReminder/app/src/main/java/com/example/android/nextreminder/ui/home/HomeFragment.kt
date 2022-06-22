@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.android.nextreminder.R
+import com.example.android.nextreminder.data.SimilarItemTypeEnum
 import com.example.android.nextreminder.databinding.FragmentHomeBinding
+import com.google.android.material.chip.Chip
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class HomeFragment : Fragment() {
@@ -28,14 +31,28 @@ class HomeFragment : Fragment() {
 
         binding.homeSearchButton.setOnClickListener {
             val keywords = binding.homeTextField.editText?.text?.toString()
-            if (keywords.isNullOrBlank()) {
+            // TODO: data validation?
+            if (keywords.isNullOrBlank() || keywords.trim(',').isBlank()) {
                 Toast.makeText(requireContext(), R.string.error_empty_keyword, Toast.LENGTH_SHORT)
                     .show()
                 return@setOnClickListener
             }
-            viewModel.getSimilarMedia(keywords)
+
+            val filter = getCheckedFilter()
+            viewModel.getSimilarMedia(keywords = keywords, filter = filter)
         }
 
+        setObservers()
+
+        return binding.root
+    }
+
+    private fun getCheckedFilter(): SimilarItemTypeEnum {
+        val chip = binding.homeChipGroup.children.first { (it as Chip).isChecked } as Chip
+        return SimilarItemTypeEnum.getEnumFromLabel(chip.text.toString())
+    }
+
+    private fun setObservers() {
         viewModel.moveToResult.observe(viewLifecycleOwner) {
             if (it == false) return@observe
             findNavController().navigate(
@@ -49,7 +66,5 @@ class HomeFragment : Fragment() {
             Toast.makeText(requireContext(), messageStringResource, Toast.LENGTH_SHORT).show()
             viewModel.toastDisplayed()
         }
-
-        return binding.root
     }
 }

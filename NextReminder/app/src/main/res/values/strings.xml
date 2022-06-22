@@ -6,8 +6,9 @@
     <string name="home_title">What media did you enjoy recently?</string>
     <string name="home_subtitle">Discover music, movies, TV shows, books, games and podcasts based on what you like.</string>
     <string name="search">Search</string>
+    <string name="search_hint">Search with the media name</string>
     <string name="search_helper">You can add several names by separating them with a comma.</string>
-    <string name="chip_title">Only look for:</string>
+    <string name="chip_title">Choose one filter:</string>
     <string name="chip_music">Music</string>
     <string name="chip_movies">Movies</string>
     <string name="chip_tvshows">TV Shows</string>
@@ -19,6 +20,8 @@
     <string name="detail_wikipedia"><u>Wikipedia</u></string>
     <string name="detail_youtube"><u>Youtube</u></string>
     <string name="home_result_search">Search again</string>
+    <string name="home_result_snackbar_title">Removed bookmark for %1$s</string>
+    <string name="home_result_snackbar_action">Add back</string>
 
     <string name="content_description_type">Type: %1$s</string>
     <string name="content_description_bookmark">Bookmark</string>
@@ -28,7 +31,8 @@
     <string name="error_empty_result">Sorry, no results found… \n Try searching something else?</string>
     <string name="error_removing_bookmark">Error removing the bookmark</string>
     <string name="error_adding_bookmark">Error adding the bookmark</string>
-    <string name="no_bookmark">You haven\'t bookmarked anything yet. \n Try searching for suggestions to bookmark?</string>
+    <string name="no_bookmark">No bookmarks yet. \n Try searching for suggestions?</string>
+    <string name="no_bookmark_button">Go search</string>
 
     <string name="long_placeholder">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</string>
 </resources>

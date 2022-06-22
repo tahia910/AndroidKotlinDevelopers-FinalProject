@@ -31,11 +31,21 @@ class BookmarkFragment : Fragment() {
             viewModel.removeBookmark(item)
         })
 
+        setObservers()
+
+        binding.goSearchButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
+        return binding.root
+    }
+
+    private fun setObservers() {
         viewModel.displayBookmarkDeletedSnackBar.observe(viewLifecycleOwner) { deletedItem ->
             if (deletedItem == null) return@observe
-            // TODO: change text
-            Snackbar.make(binding.root, "Add again?", Snackbar.LENGTH_SHORT)
-                .setAction("YES") {
+
+            val message = getString(R.string.home_result_snackbar_title, deletedItem.name)
+            Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
+                .setAction(R.string.home_result_snackbar_action) {
                     viewModel.addBackBookmark(deletedItem)
                 }
                 .show()
@@ -47,10 +57,5 @@ class BookmarkFragment : Fragment() {
             Toast.makeText(requireContext(), messageStringResource, Toast.LENGTH_SHORT).show()
             viewModel.toastDisplayed()
         }
-
-        binding.goSearchButton.setOnClickListener {
-            findNavController().navigateUp()
-        }
-        return binding.root
     }
 }

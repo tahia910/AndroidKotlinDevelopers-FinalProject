@@ -10,8 +10,6 @@ data class SimilarResponse(
 )
 
 data class SimilarList(
-    @Json(name = "Info")
-    val keywordList: List<SimilarItem>, // The original request
     @Json(name = "Results")
     val resultList: List<SimilarItem>?
 )

@@ -29,6 +29,12 @@ class HomeResultFragment : Fragment() {
         })
         binding.itemList.adapter = adapter
 
+        setObservers()
+
+        return binding.root
+    }
+
+    private fun setObservers() {
         viewModel.moveToHome.observe(viewLifecycleOwner) {
             if (!it) return@observe
             findNavController().navigateUp()
@@ -47,7 +53,5 @@ class HomeResultFragment : Fragment() {
             Toast.makeText(requireContext(), messageStringResource, Toast.LENGTH_SHORT).show()
             viewModel.toastDisplayed()
         }
-
-        return binding.root
     }
 }
