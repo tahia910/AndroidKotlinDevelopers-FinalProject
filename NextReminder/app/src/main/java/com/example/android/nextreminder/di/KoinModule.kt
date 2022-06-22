@@ -21,7 +21,7 @@ object KoinModule {
             val module = module {
                 single { ApiClient.retrofitService }
                 single { LocalDatabase.createBookmarkDao(app) }
-                single { SimilarRepository((get() as SimilarService), get()) }
+                single { SimilarRepository(get(), get()) }
                 viewModel { HomeViewModel(get()) }
                 viewModel { BookmarkViewModel(get()) }
             }

@@ -29,16 +29,17 @@ class HomeResultFragment : Fragment() {
         })
         binding.itemList.adapter = adapter
 
-        viewModel.notifyAdapter.observe(viewLifecycleOwner) {
-            if (!it) return@observe
-            adapter.notifyDataSetChanged()
-            viewModel.adapterNotified()
-        }
-
         viewModel.moveToHome.observe(viewLifecycleOwner) {
             if (!it) return@observe
             findNavController().navigateUp()
             viewModel.moveFinished()
+        }
+
+        viewModel.bookmarkList.observe(viewLifecycleOwner) { bookmarkList ->
+            if (bookmarkList.isNullOrEmpty()) return@observe
+            // To avoid calling the adapter notifier unnecessarily, check if we changed anything
+            val hasUpdatedList = viewModel.updateResultListBookmarks(bookmarkList)
+            if (hasUpdatedList) adapter.notifyDataSetChanged()
         }
 
         viewModel.displayErrorToast.observe(viewLifecycleOwner) { messageStringResource ->

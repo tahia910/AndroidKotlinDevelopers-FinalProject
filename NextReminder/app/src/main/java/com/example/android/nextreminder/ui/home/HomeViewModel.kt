@@ -1,13 +1,11 @@
 package com.example.android.nextreminder.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.android.nextreminder.R
 import com.example.android.nextreminder.data.SimilarDTO
 import com.example.android.nextreminder.data.SimilarRepository
 import com.example.android.nextreminder.data.isSameAs
+import com.example.android.nextreminder.data.local.entityToDtoList
 import com.example.android.nextreminder.data.network.Result
 import kotlinx.coroutines.launch
 
@@ -21,12 +19,10 @@ class HomeViewModel(private val repository: SimilarRepository) : ViewModel() {
     val resultList: LiveData<List<SimilarDTO>>
         get() = _resultList
 
-//    val bookmarkList: LiveData<List<SimilarDTO>> =
-//        Transformations.map(repository.getAllBookmarksLiveData()) {
-//            it.entityToDtoList()
-//        }
-
-    val notifyAdapter = MutableLiveData(false)
+    val bookmarkList: LiveData<List<SimilarDTO>> =
+        Transformations.map(repository.getAllBookmarksLiveData()) {
+            it.entityToDtoList()
+        }
 
     val loading = MutableLiveData(false)
 
@@ -50,15 +46,25 @@ class HomeViewModel(private val repository: SimilarRepository) : ViewModel() {
         }
     }
 
-    private fun updateResultList(item: SimilarDTO) {
-        _resultList.value?.map {
-            if (it.isSameAs(item)) it.isBookmarked = !it.isBookmarked
-        }
-        notifyAdapter.postValue(true)
-    }
+    /**
+     * This method only gets called when one item's status has been changed manually,
+     * or if the list was modified in the bookmark list screen.
+     * (The original result list was updated already after calling the API in the repository)
+     */
+    fun updateResultListBookmarks(bookmarkList: List<SimilarDTO>): Boolean {
+        var hasUpdatedList = false
+        _resultList.value?.map { item ->
+            // If the item does not exist in the bookmark list, then the value should be false
+            val isBookmarked = bookmarkList.find { it.isSameAs(item) }?.isBookmarked ?: false
 
-    fun adapterNotified() {
-        notifyAdapter.postValue(false)
+            // The item bookmark status is not correct
+            if (item.isBookmarked != isBookmarked) {
+                hasUpdatedList = true
+                // The current status could be false or true, just make sure it becomes its contrary
+                item.isBookmarked = !item.isBookmarked
+            }
+        }
+        return hasUpdatedList
     }
 
     fun addOrRemoveBookmark(item: SimilarDTO) {
@@ -72,7 +78,6 @@ class HomeViewModel(private val repository: SimilarRepository) : ViewModel() {
             when (result) {
                 is Result.Success<*> -> {
                     // TODO: Display SnackBar for both cases + suggest to move to bookmark list?
-                    updateResultList(item)
                 }
                 is Result.Error -> {
                     displayErrorToast(item.isBookmarked)
