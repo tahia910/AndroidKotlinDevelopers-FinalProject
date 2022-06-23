@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.example.android.nextreminder.R
 import com.example.android.nextreminder.databinding.FragmentBookmarkBinding
-import com.example.android.nextreminder.ui.home.HomeResultAdapter
-import com.example.android.nextreminder.ui.home.ItemClickListener
+import com.example.android.nextreminder.ui.ItemClickListener
+import com.example.android.nextreminder.ui.MainActivity
+import com.example.android.nextreminder.ui.SimilarListAdapter
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -27,14 +27,16 @@ class BookmarkFragment : Fragment() {
         binding = FragmentBookmarkBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.bookmarkList.adapter = HomeResultAdapter(ItemClickListener { item ->
+        binding.bookmarkList.adapter = SimilarListAdapter(ItemClickListener { item ->
             viewModel.removeBookmark(item)
         })
 
         setObservers()
 
         binding.goSearchButton.setOnClickListener {
-            findNavController().navigateUp()
+            // The navigation logic between the main screen's fragments (using Navigation Component)
+            // is handled inside the TabLayout's listener in the activity
+            (activity as MainActivity).changeTab(0)
         }
         return binding.root
     }

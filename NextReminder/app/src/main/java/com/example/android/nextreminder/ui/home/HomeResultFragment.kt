@@ -8,13 +8,15 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.android.nextreminder.databinding.FragmentHomeResultBinding
+import com.example.android.nextreminder.ui.ItemClickListener
+import com.example.android.nextreminder.ui.SimilarListAdapter
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class HomeResultFragment : Fragment() {
 
     private val viewModel: HomeViewModel by sharedViewModel()
     private lateinit var binding: FragmentHomeResultBinding
-    private lateinit var adapter: HomeResultAdapter
+    private lateinit var adapter: SimilarListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,7 +26,7 @@ class HomeResultFragment : Fragment() {
         binding = FragmentHomeResultBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        adapter = HomeResultAdapter(ItemClickListener { item ->
+        adapter = SimilarListAdapter(ItemClickListener { item ->
             viewModel.addOrRemoveBookmark(item)
         })
         binding.itemList.adapter = adapter

@@ -40,7 +40,8 @@ class HomeFragment : Fragment() {
         }
 
         binding.homeTextField.editText?.doOnTextChanged { text, _, _, _ ->
-            if (isValidSearchKeyword(text)) viewModel.saveKeyword(text.toString())
+            isValidSearchKeyword(text)
+            viewModel.saveKeyword(text.toString())
         }
 
         setObservers()

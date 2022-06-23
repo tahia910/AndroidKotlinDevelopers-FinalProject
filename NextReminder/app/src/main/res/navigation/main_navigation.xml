@@ -3,27 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/homeFragment">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/homeFragment"
         android:name="com.example.android.nextreminder.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_navigation_home_to_navigation_home_result"
-            app:destination="@id/navigation_home_result" />
+            app:destination="@id/homeResultFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_bookmark"
+        android:id="@+id/bookmarkFragment"
         android:name="com.example.android.nextreminder.ui.bookmark.BookmarkFragment"
         android:label="@string/title_bookmark"
         tools:layout="@layout/fragment_bookmark" />
 
     <fragment
-        android:id="@+id/navigation_home_result"
+        android:id="@+id/homeResultFragment"
         android:name="com.example.android.nextreminder.ui.home.HomeResultFragment"
-        android:label="Search Result"
+        android:label="@string/title_search_result"
         tools:layout="@layout/fragment_home_result" />
 </navigation>

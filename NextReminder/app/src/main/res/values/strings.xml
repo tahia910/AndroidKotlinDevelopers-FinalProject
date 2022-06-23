@@ -2,6 +2,7 @@
     <string name="app_name">Next Reminder</string>
     <string name="title_home">Search</string>
     <string name="title_bookmark">Bookmark</string>
+    <string name="title_search_result">Search Result</string>
 
     <string name="home_title">What media did you enjoy recently?</string>
     <string name="home_subtitle">Discover music, movies, TV shows, books, games and podcasts based on what you like.</string>

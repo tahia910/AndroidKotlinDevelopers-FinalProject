@@ -10,11 +10,11 @@ import com.example.android.nextreminder.R
 import com.example.android.nextreminder.data.SimilarDTO
 import com.example.android.nextreminder.data.SimilarItemTypeEnum
 import com.example.android.nextreminder.data.SimilarItemTypeEnum.*
-import com.example.android.nextreminder.ui.home.HomeResultAdapter
+import com.example.android.nextreminder.ui.SimilarListAdapter
 
 @BindingAdapter("bindListData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<SimilarDTO>?) {
-    val adapter = recyclerView.adapter as HomeResultAdapter
+    val adapter = recyclerView.adapter as SimilarListAdapter
     adapter.submitList(data)
 }
 

@@ -13,7 +13,7 @@
 
         <variable
             name="clickListener"
-            type="com.example.android.nextreminder.ui.home.ItemClickListener" />
+            type="com.example.android.nextreminder.ui.ItemClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

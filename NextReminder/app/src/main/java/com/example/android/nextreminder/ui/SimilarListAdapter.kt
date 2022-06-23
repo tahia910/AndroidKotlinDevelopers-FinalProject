@@ -1,4 +1,4 @@
-package com.example.android.nextreminder.ui.home
+package com.example.android.nextreminder.ui
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.android.nextreminder.data.SimilarDTO
 import com.example.android.nextreminder.databinding.ListItemBinding
 
-class HomeResultAdapter(private val clickListener: ItemClickListener) :
-    ListAdapter<SimilarDTO, HomeResultAdapter.ViewHolder>(DiffCallback) {
+class SimilarListAdapter(private val clickListener: ItemClickListener) :
+    ListAdapter<SimilarDTO, SimilarListAdapter.ViewHolder>(DiffCallback) {
 
     companion object DiffCallback : DiffUtil.ItemCallback<SimilarDTO>() {
         override fun areContentsTheSame(oldItem: SimilarDTO, newItem: SimilarDTO): Boolean {
