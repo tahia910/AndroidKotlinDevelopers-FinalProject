@@ -12,7 +12,6 @@ import kotlinx.coroutines.launch
 
 class HomeViewModel(private val repository: SimilarRepository) : ViewModel() {
 
-    // TODO: get from edit text
     private val _queryString = MutableLiveData<String>()
     val queryString: LiveData<String>
         get() = _queryString
@@ -28,7 +27,11 @@ class HomeViewModel(private val repository: SimilarRepository) : ViewModel() {
 
     val loading = MutableLiveData(false)
 
-    fun getSimilarMedia(keywords: String, filter: SimilarItemTypeEnum) {
+    fun saveKeyword(text: String) {
+        _queryString.value = text
+    }
+
+    fun getSimilarMediaList(keywords: String, filter: SimilarItemTypeEnum) {
         loading.postValue(true)
         viewModelScope.launch {
             val result = repository.getSimilarMediaList(keywords = keywords, filter = filter)

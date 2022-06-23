@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.children
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.android.nextreminder.R
@@ -30,21 +31,34 @@ class HomeFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         binding.homeSearchButton.setOnClickListener {
-            val keywords = binding.homeTextField.editText?.text?.toString()
-            // TODO: data validation?
-            if (keywords.isNullOrBlank() || keywords.trim(',').isBlank()) {
-                Toast.makeText(requireContext(), R.string.error_empty_keyword, Toast.LENGTH_SHORT)
-                    .show()
-                return@setOnClickListener
-            }
+            val keyword =
+                binding.homeTextField.editText?.text?.toString() ?: return@setOnClickListener
+            if (!isValidSearchKeyword(keyword)) return@setOnClickListener
 
             val filter = getCheckedFilter()
-            viewModel.getSimilarMedia(keywords = keywords, filter = filter)
+            viewModel.getSimilarMediaList(keywords = keyword, filter = filter)
+        }
+
+        binding.homeTextField.editText?.doOnTextChanged { text, _, _, _ ->
+            if (isValidSearchKeyword(text)) viewModel.saveKeyword(text.toString())
         }
 
         setObservers()
 
         return binding.root
+    }
+
+    // https://betterprogramming.pub/textinputlayout-form-validation-using-data-binding-in-android-86aea8645a11
+    private fun isValidSearchKeyword(text: CharSequence?): Boolean {
+        return if (text?.trim(' ', ',').isNullOrBlank()) {
+            binding.homeTextField.error = getString(R.string.error_empty_keyword)
+            binding.homeTextField.requestFocus()
+            false
+        } else {
+            binding.homeTextField.isErrorEnabled = false
+            viewModel.saveKeyword(text.toString())
+            true
+        }
     }
 
     private fun getCheckedFilter(): SimilarItemTypeEnum {
