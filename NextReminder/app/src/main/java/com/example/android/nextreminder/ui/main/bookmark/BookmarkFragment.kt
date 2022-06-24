@@ -1,4 +1,4 @@
-package com.example.android.nextreminder.ui.bookmark
+package com.example.android.nextreminder.ui.main.bookmark
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.android.nextreminder.R
 import com.example.android.nextreminder.databinding.FragmentBookmarkBinding
 import com.example.android.nextreminder.ui.ItemClickListener
-import com.example.android.nextreminder.ui.MainActivity
 import com.example.android.nextreminder.ui.SimilarListAdapter
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -34,9 +34,7 @@ class BookmarkFragment : Fragment() {
         setObservers()
 
         binding.goSearchButton.setOnClickListener {
-            // The navigation logic between the main screen's fragments (using Navigation Component)
-            // is handled inside the TabLayout's listener in the activity
-            (activity as MainActivity).changeTab(0)
+            findNavController().navigateUp()
         }
         return binding.root
     }

@@ -5,15 +5,16 @@
 
     <data>
 
+        <import type="android.text.TextUtils" />
+
         <variable
             name="viewModel"
-            type="com.example.android.nextreminder.ui.home.HomeViewModel" />
+            type="com.example.android.nextreminder.ui.searchresult.SearchResultViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?attr/actionBarSize"
         android:orientation="vertical">
 
         <TextView
@@ -22,12 +23,14 @@
             android:layout_height="wrap_content"
             android:padding="12dp"
             android:text="@{@string/home_result_title(viewModel.queryString)}"
+            app:isGone="@{viewModel.queryString == null || TextUtils.isEmpty(viewModel.queryString)}"
             tools:text="@string/home_result_title" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/itemList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="gone"
             app:bindListData="@{viewModel.resultList}"
             app:isGone="@{viewModel.resultList.size == 0}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -41,15 +44,23 @@
             android:layout_margin="20dp"
             android:text="@string/error_empty_result"
             android:textAlignment="center"
-            app:isGone="@{viewModel.resultList.size != 0}" />
+            app:isGone="@{viewModel.loading || viewModel.resultList.size != 0 || viewModel.queryString == null}" />
 
         <Button
             android:id="@+id/searchAgainButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
             android:onClick="@{() -> viewModel.searchAgain()}"
             android:text="@string/home_result_search"
-            app:isGone="@{viewModel.resultList.size != 0}" />
+            app:isGone="@{viewModel.loading || viewModel.resultList.size != 0}" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            app:isGone="@{!viewModel.loading}" />
     </LinearLayout>
 </layout>

@@ -1,4 +1,4 @@
-package com.example.android.nextreminder.ui.home
+package com.example.android.nextreminder.ui.searchresult
 
 import androidx.lifecycle.*
 import com.example.android.nextreminder.R
@@ -10,7 +10,7 @@ import com.example.android.nextreminder.data.local.entityToDtoList
 import com.example.android.nextreminder.data.network.Result
 import kotlinx.coroutines.launch
 
-class HomeViewModel(private val repository: SimilarRepository) : ViewModel() {
+class SearchResultViewModel(private val repository: SimilarRepository) : ViewModel() {
 
     private val _queryString = MutableLiveData<String>()
     val queryString: LiveData<String>
@@ -27,21 +27,21 @@ class HomeViewModel(private val repository: SimilarRepository) : ViewModel() {
 
     val loading = MutableLiveData(false)
 
-    fun saveKeyword(text: String) {
-        _queryString.value = text
+    fun launchSearch(keyword: String, filter: SimilarItemTypeEnum) {
+        _queryString.value = keyword
+        getSimilarMediaList(keyword, filter)
     }
 
-    fun getSimilarMediaList(keywords: String, filter: SimilarItemTypeEnum) {
+    private fun getSimilarMediaList(keyword: String, filter: SimilarItemTypeEnum) {
         loading.postValue(true)
         viewModelScope.launch {
-            val result = repository.getSimilarMediaList(keywords = keywords, filter = filter)
+            val result = repository.getSimilarMediaList(keywords = keyword, filter = filter)
             when (result) {
                 is Result.Success<*> -> {
                     loading.postValue(false)
                     val data = (result.data as? List<SimilarDTO>) ?: return@launch
 
                     _resultList.postValue(data)
-                    _moveToResult.postValue(true)
                 }
                 is Result.Error -> {
                     loading.postValue(false)
@@ -82,12 +82,17 @@ class HomeViewModel(private val repository: SimilarRepository) : ViewModel() {
             // The result list will get updated through the bookmark list observer
 
             if (result is Result.Error) {
-                displayErrorToast(item.isBookmarked)
+                displayBookmarkErrorToast(item.isBookmarked)
             }
         }
     }
 
-    private fun displayErrorToast(wasOriginallyBookmarked: Boolean) {
+    fun displayExtraParsingErrorToast() {
+        // Display an error toast and the "Search Again" button to go back
+        _displayErrorToast.postValue(R.string.error_extra_parsing)
+    }
+
+    private fun displayBookmarkErrorToast(wasOriginallyBookmarked: Boolean) {
         val errorMessage = if (wasOriginallyBookmarked) {
             R.string.error_removing_bookmark
         } else {
@@ -98,20 +103,12 @@ class HomeViewModel(private val repository: SimilarRepository) : ViewModel() {
 
     fun searchAgain() {
         _moveToHome.postValue(true)
-        _resultList.postValue(null)
     }
 
-    private val _moveToResult = MutableLiveData(false)
-    val moveToResult: LiveData<Boolean> = _moveToResult
     private val _moveToHome = MutableLiveData(false)
     val moveToHome: LiveData<Boolean> = _moveToHome
     private val _displayErrorToast = MutableLiveData<Int?>()
     val displayErrorToast: LiveData<Int?> = _displayErrorToast
-
-    fun moveFinished() {
-        _moveToResult.value = false
-        _moveToHome.value = false
-    }
 
     fun toastDisplayed() {
         _displayErrorToast.postValue(null)

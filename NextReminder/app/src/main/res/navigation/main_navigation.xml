@@ -7,23 +7,19 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.android.nextreminder.ui.home.HomeFragment"
+        android:name="com.example.android.nextreminder.ui.main.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_navigation_home_to_navigation_home_result"
-            app:destination="@id/homeResultFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/bookmarkFragment"
-        android:name="com.example.android.nextreminder.ui.bookmark.BookmarkFragment"
+        android:name="com.example.android.nextreminder.ui.main.bookmark.BookmarkFragment"
         android:label="@string/title_bookmark"
         tools:layout="@layout/fragment_bookmark" />
 
     <fragment
-        android:id="@+id/homeResultFragment"
-        android:name="com.example.android.nextreminder.ui.home.HomeResultFragment"
-        android:label="@string/title_search_result"
-        tools:layout="@layout/fragment_home_result" />
+        android:id="@+id/randomFragment"
+        android:name="com.example.android.nextreminder.ui.main.random.RandomFragment"
+        android:label="@string/title_random"
+        tools:layout="@layout/fragment_random" />
 </navigation>

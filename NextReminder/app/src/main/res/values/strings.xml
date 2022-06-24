@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Next Reminder</string>
     <string name="title_home">Search</string>
+    <string name="title_random">Random</string>
     <string name="title_bookmark">Bookmark</string>
     <string name="title_search_result">Search Result</string>
 
@@ -29,6 +30,7 @@
 
     <string name="error_empty_keyword">Can\'t search without keyword(s)!</string>
     <string name="error_network">Network error. Please try again.</string>
+    <string name="error_extra_parsing">Unknown error. Please try again.</string>
     <string name="error_empty_result">Sorry, no results found… \n Try searching something else?</string>
     <string name="error_removing_bookmark">Error removing the bookmark</string>
     <string name="error_adding_bookmark">Error adding the bookmark</string>

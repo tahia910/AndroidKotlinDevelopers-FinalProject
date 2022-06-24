@@ -1,4 +1,4 @@
-package com.example.android.nextreminder.ui.bookmark
+package com.example.android.nextreminder.ui.main.bookmark
 
 import androidx.lifecycle.*
 import com.example.android.nextreminder.R
