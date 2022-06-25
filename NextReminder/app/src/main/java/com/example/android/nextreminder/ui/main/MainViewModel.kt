@@ -23,6 +23,11 @@ class MainViewModel(private val repository: SimilarRepository) : ViewModel() {
         _queryString.value = text
     }
 
+    fun getRandomBookmark() {
+        val randomBookmark = bookmarkList.value?.random()
+        _moveToDetail.postValue(randomBookmark)
+    }
+
     fun removeBookmark(item: SimilarDTO) {
         viewModelScope.launch {
             val result = repository.removeBookmark(item)
@@ -50,6 +55,8 @@ class MainViewModel(private val repository: SimilarRepository) : ViewModel() {
     val displayBookmarkDeletedSnackBar: LiveData<SimilarDTO?> = _displayBookmarkDeletedSnackBar
     private val _displayErrorToast = MutableLiveData<Int?>()
     val displayErrorToast: LiveData<Int?> = _displayErrorToast
+    private val _moveToDetail = MutableLiveData<SimilarDTO?>()
+    val moveToDetail: LiveData<SimilarDTO?> = _moveToDetail
 
     fun snackBarDisplayed() {
         _displayBookmarkDeletedSnackBar.value = null
@@ -57,5 +64,9 @@ class MainViewModel(private val repository: SimilarRepository) : ViewModel() {
 
     fun toastDisplayed() {
         _displayErrorToast.value = null
+    }
+
+    fun moveFinished() {
+        _moveToDetail.value = null
     }
 }

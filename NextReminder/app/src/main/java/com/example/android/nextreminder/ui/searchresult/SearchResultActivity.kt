@@ -18,11 +18,12 @@ class SearchResultActivity : AppCompatActivity() {
         private const val EXTRA_KEYWORD = "extra_keyword"
         private const val EXTRA_FILTER = "extra_filter"
 
-        fun newIntent(context: Context, keyword: String, filter: SimilarItemTypeEnum): Intent {
-            return Intent(context, SearchResultActivity::class.java).apply {
+        fun startActivity(context: Context, keyword: String, filter: SimilarItemTypeEnum) {
+            val intent = Intent(context, SearchResultActivity::class.java).apply {
                 putExtra(EXTRA_KEYWORD, keyword)
                 putExtra(EXTRA_FILTER, filter)
             }
+            context.startActivity(intent)
         }
     }
 
@@ -42,8 +43,7 @@ class SearchResultActivity : AppCompatActivity() {
             ItemClickListener(
                 bookmarkClickListener = { item -> viewModel.addOrRemoveBookmark(item) },
                 itemClickListener = { item ->
-                    val intent = DetailActivity.newIntent(this, item)
-                    startActivity(intent)
+                    DetailActivity.startActivity(this, item)
                 }
             )
         )

@@ -32,8 +32,7 @@ class BookmarkFragment : Fragment() {
             ItemClickListener(
                 bookmarkClickListener = { item -> viewModel.removeBookmark(item) },
                 itemClickListener = { item ->
-                    val intent = DetailActivity.newIntent(requireContext(), item)
-                    startActivity(intent)
+                    DetailActivity.startActivity(requireContext(), item)
                 }
             )
         )

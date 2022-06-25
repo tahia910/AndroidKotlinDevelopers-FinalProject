@@ -36,12 +36,11 @@ class HomeFragment : Fragment() {
 
             val filter = getCheckedFilter()
 
-            val intent = SearchResultActivity.newIntent(
+            SearchResultActivity.startActivity(
                 context = requireContext(),
                 keyword = keyword,
                 filter = filter
             )
-            startActivity(intent)
         }
 
         binding.homeTextField.editText?.doOnTextChanged { text, _, _, _ ->

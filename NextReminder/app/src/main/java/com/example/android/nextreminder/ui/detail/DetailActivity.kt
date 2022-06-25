@@ -16,10 +16,11 @@ class DetailActivity : AppCompatActivity() {
     companion object {
         private const val EXTRA_SIMILAR_ITEM = "extra_similar_item"
 
-        fun newIntent(context: Context, similarItem: SimilarDTO): Intent {
-            return Intent(context, DetailActivity::class.java).apply {
+        fun startActivity(context: Context, similarItem: SimilarDTO) {
+            val intent = Intent(context, DetailActivity::class.java).apply {
                 putExtra(EXTRA_SIMILAR_ITEM, similarItem)
             }
+            context.startActivity(intent)
         }
     }
 

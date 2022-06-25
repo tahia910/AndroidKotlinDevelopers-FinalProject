@@ -23,11 +23,18 @@
     <string name="search_result_title">Result for: %1$s</string>
     <string name="search_result_search">Search again</string>
 
+    <!-- Random screen -->
+    <string name="random_title">No inspiration?</string>
+    <string name="random_subtitle">Shake your phone to get a random suggestion from your bookmarks!</string>
+    <string name="random_button_helper">(Or tap this button)</string>
+    <string name="random_button">Random</string>
+
     <!-- Bookmark list screen -->
     <string name="bookmarks_snackbar_title">Removed bookmark for %1$s</string>
     <string name="bookmarks_snackbar_action">Undo</string>
-    <string name="no_bookmark">No bookmarks yet. \n Try searching for suggestions?</string>
-    <string name="no_bookmark_button">Go search</string>
+    <string name="bookmarks_empty_title">No bookmarks yet.</string>
+    <string name="bookmarks_empty_subtitle">Try searching for suggestions?</string>
+    <string name="bookmarks_empty_button">Go search</string>
 
     <!-- Item detail screen-->
     <string name="detail_wikipedia"><u>Wikipedia</u></string>
@@ -43,7 +50,7 @@
     <string name="error_empty_keyword">Can\'t search without keyword(s)!</string>
     <string name="error_network">Network error. Please try again.</string>
     <string name="error_extra_parsing">Unknown error. Please try again.</string>
-    <string name="error_empty_result">Sorry, no results found… \n Try searching something else?</string>
+    <string name="error_empty_result">Sorry, no results found… \nTry searching something else?</string>
     <string name="error_removing_bookmark">Error removing the bookmark</string>
     <string name="error_adding_bookmark">Error adding the bookmark</string>
 
