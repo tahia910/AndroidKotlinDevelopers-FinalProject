@@ -24,7 +24,11 @@ class MainViewModel(private val repository: SimilarRepository) : ViewModel() {
     }
 
     fun getRandomBookmark() {
-        val randomBookmark = bookmarkList.value?.random()
+        if (bookmarkList.value.isNullOrEmpty()) {
+            _displayErrorToast.postValue(R.string.error_no_bookmarks)
+            return
+        }
+        val randomBookmark = bookmarkList.value?.random() ?: return
         _moveToDetail.postValue(randomBookmark)
     }
 

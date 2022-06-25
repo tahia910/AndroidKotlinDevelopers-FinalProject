@@ -7,7 +7,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.android.nextreminder.R
 import com.example.android.nextreminder.databinding.FragmentRandomBinding
 import com.example.android.nextreminder.ui.detail.DetailActivity
 import com.example.android.nextreminder.utils.ShakeDetector
@@ -31,11 +34,7 @@ class RandomFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        viewModel.moveToDetail.observe(viewLifecycleOwner) { randomItem ->
-            if (randomItem == null) return@observe
-            DetailActivity.startActivity(requireContext(), randomItem)
-            viewModel.moveFinished()
-        }
+        setObservers()
 
         sensorManager = requireActivity().getSystemService(Context.SENSOR_SERVICE) as SensorManager
         accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
@@ -45,7 +44,25 @@ class RandomFragment : Fragment() {
             }
         )
 
+        // Make the phone image to shake (vibrate) indefinitely as a cue to the user
+        val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.shake)
+        binding.randomShakingImage.startAnimation(animation)
+
         return binding.root
+    }
+
+    private fun setObservers() {
+        viewModel.moveToDetail.observe(viewLifecycleOwner) { randomItem ->
+            if (randomItem == null) return@observe
+            DetailActivity.startActivity(requireContext(), randomItem)
+            viewModel.moveFinished()
+        }
+
+        viewModel.displayErrorToast.observe(viewLifecycleOwner) { messageStringResource ->
+            if (messageStringResource == null) return@observe
+            Toast.makeText(requireContext(), messageStringResource, Toast.LENGTH_SHORT).show()
+            viewModel.toastDisplayed()
+        }
     }
 
     override fun onResume() {
