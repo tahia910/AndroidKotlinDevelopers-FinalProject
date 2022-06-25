@@ -1,4 +1,4 @@
-package com.example.android.nextreminder.ui.main.home
+package com.example.android.nextreminder.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,11 +12,11 @@ import com.example.android.nextreminder.data.SimilarItemTypeEnum
 import com.example.android.nextreminder.databinding.FragmentHomeBinding
 import com.example.android.nextreminder.ui.searchresult.SearchResultActivity
 import com.google.android.material.chip.Chip
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class HomeFragment : Fragment() {
 
-    private val viewModel: HomeViewModel by viewModel()
+    private val viewModel: MainViewModel by sharedViewModel()
     private lateinit var binding: FragmentHomeBinding
 
     override fun onCreateView(

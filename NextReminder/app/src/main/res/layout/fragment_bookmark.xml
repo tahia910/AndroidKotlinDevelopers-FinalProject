@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.android.nextreminder.ui.main.bookmark.BookmarkViewModel" />
+            type="com.example.android.nextreminder.ui.main.MainViewModel" />
     </data>
 
     <LinearLayout

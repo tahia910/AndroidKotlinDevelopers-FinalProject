@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.android.nextreminder.ui.main.home.HomeViewModel" />
+            type="com.example.android.nextreminder.ui.main.MainViewModel" />
     </data>
 
     <ScrollView
@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="12dp"
-            tools:context=".ui.main.home.HomeFragment">
+            tools:context=".ui.main.HomeFragment">
 
             <TextView
                 android:id="@+id/homeTitle"

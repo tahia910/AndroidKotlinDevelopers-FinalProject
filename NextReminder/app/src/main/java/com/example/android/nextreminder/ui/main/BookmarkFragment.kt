@@ -1,4 +1,4 @@
-package com.example.android.nextreminder.ui.main.bookmark
+package com.example.android.nextreminder.ui.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,13 +12,12 @@ import com.example.android.nextreminder.databinding.FragmentBookmarkBinding
 import com.example.android.nextreminder.ui.ItemClickListener
 import com.example.android.nextreminder.ui.SimilarListAdapter
 import com.example.android.nextreminder.ui.detail.DetailActivity
-import com.example.android.nextreminder.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class BookmarkFragment : Fragment() {
 
-    private val viewModel: BookmarkViewModel by viewModel()
+    private val viewModel: MainViewModel by sharedViewModel()
     private lateinit var binding: FragmentBookmarkBinding
 
     override fun onCreateView(
@@ -51,12 +50,12 @@ class BookmarkFragment : Fragment() {
         viewModel.displayBookmarkDeletedSnackBar.observe(viewLifecycleOwner) { deletedItem ->
             if (deletedItem == null) return@observe
 
-            val message = getString(R.string.home_result_snackbar_title, deletedItem.name)
+            val message = getString(R.string.bookmarks_snackbar_title, deletedItem.name)
 
             val anchorView = (requireActivity() as MainActivity).getBottomNavView()
             Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
                 .setAnchorView(anchorView)
-                .setAction(R.string.home_result_snackbar_action) {
+                .setAction(R.string.bookmarks_snackbar_action) {
                     viewModel.addBackBookmark(deletedItem)
                 }
                 .show()

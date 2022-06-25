@@ -10,11 +10,13 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.android.nextreminder.R
 import com.example.android.nextreminder.databinding.ActivityMainBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
+    private val viewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,6 +34,11 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         // Set up the bottom bar
         binding.bottomNavView.setupWithNavController(navController)
+
+        // Observe the database to have the data ready as early as possible
+        viewModel.bookmarkList.observe(this) {
+            // TODO: suggest to have a look at bookmarks?
+        }
     }
 
     // Display fragment's SnackBars above the bottom bar

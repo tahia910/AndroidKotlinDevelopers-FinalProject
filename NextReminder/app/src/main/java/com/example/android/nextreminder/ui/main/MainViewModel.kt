@@ -1,4 +1,4 @@
-package com.example.android.nextreminder.ui.main.bookmark
+package com.example.android.nextreminder.ui.main
 
 import androidx.lifecycle.*
 import com.example.android.nextreminder.R
@@ -8,12 +8,20 @@ import com.example.android.nextreminder.data.local.entityToDtoList
 import com.example.android.nextreminder.data.network.Result
 import kotlinx.coroutines.launch
 
-class BookmarkViewModel(private val repository: SimilarRepository) : ViewModel() {
+class MainViewModel(private val repository: SimilarRepository) : ViewModel() {
 
     val bookmarkList: LiveData<List<SimilarDTO>> =
         Transformations.map(repository.getAllBookmarksLiveData()) {
             it.entityToDtoList()
         }
+
+    private val _queryString = MutableLiveData<String>()
+    val queryString: LiveData<String>
+        get() = _queryString
+
+    fun saveKeyword(text: String) {
+        _queryString.value = text
+    }
 
     fun removeBookmark(item: SimilarDTO) {
         viewModelScope.launch {

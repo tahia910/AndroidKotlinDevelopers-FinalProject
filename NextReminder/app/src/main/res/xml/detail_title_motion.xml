@@ -9,7 +9,7 @@
         app:constraintSetStart="@+id/start"
         app:duration="10000">
 
-        <!-- Start the animation on swipe event (similar to CollapsingToolbar) -->
+        <!-- Start the animation on swipe or drag event (similar to CollapsingToolbar) -->
         <OnSwipe app:touchAnchorId="@id/detailItemDescription" />
 
         <KeyFrameSet>
