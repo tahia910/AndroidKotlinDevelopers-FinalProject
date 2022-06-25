@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.text.TextUtils" />
+
         <variable
             name="viewModel"
             type="com.example.android.nextreminder.ui.detail.DetailViewModel" />
@@ -20,7 +22,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:paddingBottom="68dp">
 
                 <TextView
                     android:id="@+id/detailItemTitle"
@@ -53,12 +56,39 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
-                    android:paddingBottom="68dp"
                     android:text="@{viewModel.similarItem.description}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/detailItemType"
                     tools:text="@string/long_placeholder" />
+
+                <Button
+                    android:id="@+id/itemWikipedia"
+                    style="@style/UrlButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:text="@string/detail_wikipedia"
+                    app:isGone="@{TextUtils.isEmpty(viewModel.similarItem.wikipediaUrl)}"
+                    app:layout_constraintEnd_toStartOf="@+id/itemYoutube"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/detailItemDescription"
+                    app:url="@{viewModel.similarItem.wikipediaUrl}" />
+
+                <Button
+                    android:id="@+id/itemYoutube"
+                    style="@style/UrlButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:text="@string/detail_youtube"
+                    app:isGone="@{TextUtils.isEmpty(viewModel.similarItem.youtubeVideoUrl)}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/itemWikipedia"
+                    app:layout_constraintTop_toBottomOf="@id/detailItemDescription"
+                    app:url="@{viewModel.similarItem.youtubeVideoUrl}" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>

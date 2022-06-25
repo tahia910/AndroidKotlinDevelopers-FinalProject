@@ -42,8 +42,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="12dp"
             android:text="@{similarItem.name}"
             app:layout_constraintEnd_toStartOf="@id/itemBookmark"
             app:layout_constraintStart_toEndOf="@id/itemType"
@@ -74,7 +74,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="36dp"
             android:ellipsize="end"
             android:maxLines="5"
             android:text="@{similarItem.description}"
@@ -83,30 +83,6 @@
             app:layout_constraintStart_toStartOf="@id/itemTitle"
             app:layout_constraintTop_toBottomOf="@id/itemTitle"
             tools:text="@string/long_placeholder" />
-
-        <Button
-            android:id="@+id/itemWikipedia"
-            style="@style/UrlButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="12dp"
-            android:text="@string/detail_wikipedia"
-            app:isGone="@{TextUtils.isEmpty(similarItem.wikipediaUrl)}"
-            app:layout_constraintStart_toStartOf="@id/itemTitle"
-            app:layout_constraintTop_toBottomOf="@id/itemDescription"
-            app:url="@{similarItem.wikipediaUrl}" />
-
-        <Button
-            android:id="@+id/itemYoutube"
-            style="@style/UrlButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="12dp"
-            android:text="@string/detail_youtube"
-            app:isGone="@{TextUtils.isEmpty(similarItem.youtubeVideoUrl)}"
-            app:layout_constraintStart_toEndOf="@id/itemWikipedia"
-            app:layout_constraintTop_toTopOf="@id/itemWikipedia"
-            app:url="@{similarItem.youtubeVideoUrl}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
