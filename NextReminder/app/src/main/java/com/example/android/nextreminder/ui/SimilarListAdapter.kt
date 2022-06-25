@@ -46,6 +46,10 @@ class SimilarListAdapter(private val clickListener: ItemClickListener) :
     }
 }
 
-class ItemClickListener(val clickListener: (item: SimilarDTO) -> Unit) {
-    fun onClick(item: SimilarDTO) = clickListener(item)
+class ItemClickListener(
+    val bookmarkClickListener: (item: SimilarDTO) -> Unit,
+    val itemClickListener: (item: SimilarDTO) -> Unit
+) {
+    fun onBookmarkClick(item: SimilarDTO) = bookmarkClickListener(item)
+    fun onItemClick(item: SimilarDTO) = itemClickListener(item)
 }

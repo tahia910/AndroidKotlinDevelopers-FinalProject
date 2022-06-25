@@ -16,6 +16,8 @@ class SearchResultViewModel(private val repository: SimilarRepository) : ViewMod
     val queryString: LiveData<String>
         get() = _queryString
 
+    private val filter = MutableLiveData<SimilarItemTypeEnum>()
+
     private val _resultList = MutableLiveData<List<SimilarDTO>>()
     val resultList: LiveData<List<SimilarDTO>>
         get() = _resultList
@@ -27,12 +29,18 @@ class SearchResultViewModel(private val repository: SimilarRepository) : ViewMod
 
     val loading = MutableLiveData(false)
 
-    fun launchSearch(keyword: String, filter: SimilarItemTypeEnum) {
+    fun saveKeywordAndFilter(keyword: String, filter: SimilarItemTypeEnum) {
         _queryString.value = keyword
-        getSimilarMediaList(keyword, filter)
+        this.filter.value = filter
     }
 
-    private fun getSimilarMediaList(keyword: String, filter: SimilarItemTypeEnum) {
+    fun getSimilarMediaList() {
+        val keyword = _queryString.value ?: return
+        val filter = this.filter.value ?: return
+
+        // If the user changes the orientation, don't query again
+        if (_resultList.value != null) return
+
         loading.postValue(true)
         viewModelScope.launch {
             val result = repository.getSimilarMediaList(keywords = keyword, filter = filter)

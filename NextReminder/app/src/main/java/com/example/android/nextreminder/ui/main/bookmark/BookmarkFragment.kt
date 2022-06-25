@@ -11,6 +11,7 @@ import com.example.android.nextreminder.R
 import com.example.android.nextreminder.databinding.FragmentBookmarkBinding
 import com.example.android.nextreminder.ui.ItemClickListener
 import com.example.android.nextreminder.ui.SimilarListAdapter
+import com.example.android.nextreminder.ui.detail.DetailActivity
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -27,9 +28,15 @@ class BookmarkFragment : Fragment() {
         binding = FragmentBookmarkBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
-        binding.bookmarkList.adapter = SimilarListAdapter(ItemClickListener { item ->
-            viewModel.removeBookmark(item)
-        })
+        binding.bookmarkList.adapter = SimilarListAdapter(
+            ItemClickListener(
+                bookmarkClickListener = { item -> viewModel.removeBookmark(item) },
+                itemClickListener = { item ->
+                    val intent = DetailActivity.newIntent(requireContext(), item)
+                    startActivity(intent)
+                }
+            )
+        )
 
         setObservers()
 

@@ -19,6 +19,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:foreground="?selectableItemBackground"
+        android:onClick="@{() -> clickListener.onItemClick(similarItem)}"
         android:paddingVertical="12dp">
 
         <ImageView
@@ -41,11 +43,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
+            android:layout_marginTop="8dp"
             android:text="@{similarItem.name}"
-            app:layout_constraintBottom_toBottomOf="@id/itemType"
             app:layout_constraintEnd_toStartOf="@id/itemBookmark"
             app:layout_constraintStart_toEndOf="@id/itemType"
-            app:layout_constraintTop_toTopOf="@id/itemType"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="Title" />
 
         <ImageButton
@@ -54,11 +56,11 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:background="@android:color/transparent"
-            android:contentDescription="@string/content_description_bookmark"
+            android:contentDescription="@{similarItem.isBookmarked ? @string/content_description_remove_bookmark : @string/content_description_add_bookmark}"
             android:foreground="?selectableItemBackground"
             android:minWidth="42dp"
             android:minHeight="42dp"
-            android:onClick="@{() -> clickListener.onClick(similarItem)}"
+            android:onClick="@{() -> clickListener.onBookmarkClick(similarItem)}"
             android:src="@{similarItem.isBookmarked ? @drawable/ic_bookmark : @drawable/ic_bookmark_border}"
             app:layout_constraintBottom_toBottomOf="@id/itemType"
             app:layout_constraintEnd_toEndOf="parent"

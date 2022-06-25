@@ -4,6 +4,7 @@ import android.app.Application
 import com.example.android.nextreminder.data.SimilarRepository
 import com.example.android.nextreminder.data.local.LocalDatabase
 import com.example.android.nextreminder.data.network.ApiClient
+import com.example.android.nextreminder.ui.detail.DetailViewModel
 import com.example.android.nextreminder.ui.main.bookmark.BookmarkViewModel
 import com.example.android.nextreminder.ui.main.home.HomeViewModel
 import com.example.android.nextreminder.ui.searchresult.SearchResultViewModel
@@ -25,6 +26,7 @@ object KoinModule {
                 viewModel { HomeViewModel() }
                 viewModel { BookmarkViewModel(get()) }
                 viewModel { SearchResultViewModel(get()) }
+                viewModel { DetailViewModel(get()) }
             }
             modules(listOf(module))
         }

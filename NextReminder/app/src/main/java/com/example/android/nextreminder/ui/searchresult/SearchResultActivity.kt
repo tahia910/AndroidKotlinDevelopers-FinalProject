@@ -9,6 +9,7 @@ import com.example.android.nextreminder.data.SimilarItemTypeEnum
 import com.example.android.nextreminder.databinding.ActivitySearchResultBinding
 import com.example.android.nextreminder.ui.ItemClickListener
 import com.example.android.nextreminder.ui.SimilarListAdapter
+import com.example.android.nextreminder.ui.detail.DetailActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchResultActivity : AppCompatActivity() {
@@ -37,9 +38,15 @@ class SearchResultActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        adapter = SimilarListAdapter(ItemClickListener { item ->
-            viewModel.addOrRemoveBookmark(item)
-        })
+        adapter = SimilarListAdapter(
+            ItemClickListener(
+                bookmarkClickListener = { item -> viewModel.addOrRemoveBookmark(item) },
+                itemClickListener = { item ->
+                    val intent = DetailActivity.newIntent(this, item)
+                    startActivity(intent)
+                }
+            )
+        )
         binding.itemList.adapter = adapter
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -51,11 +58,15 @@ class SearchResultActivity : AppCompatActivity() {
         if (keyword == null || filter == null) {
             viewModel.displayExtraParsingErrorToast()
         } else {
-            viewModel.launchSearch(keyword, filter)
+            viewModel.saveKeywordAndFilter(keyword, filter)
         }
     }
 
     private fun setObservers() {
+        viewModel.queryString.observe(this) {
+            if (it != null) viewModel.getSimilarMediaList()
+        }
+
         viewModel.moveToHome.observe(this) {
             if (it == true) finish()
         }

@@ -21,12 +21,14 @@
     <string name="home_result_title">Result for: %1$s</string>
     <string name="detail_wikipedia"><u>Wikipedia</u></string>
     <string name="detail_youtube"><u>Youtube</u></string>
+    <string name="detail_fab">Bookmark</string>
     <string name="home_result_search">Search again</string>
     <string name="home_result_snackbar_title">Removed bookmark for %1$s</string>
     <string name="home_result_snackbar_action">Add back</string>
 
     <string name="content_description_type">Type: %1$s</string>
-    <string name="content_description_bookmark">Bookmark</string>
+    <string name="content_description_add_bookmark">Add bookmark</string>
+    <string name="content_description_remove_bookmark">Remove bookmark</string>
 
     <string name="error_empty_keyword">Can\'t search without keyword(s)!</string>
     <string name="error_network">Network error. Please try again.</string>

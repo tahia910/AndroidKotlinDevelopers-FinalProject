@@ -1,7 +1,10 @@
 package com.example.android.nextreminder.data
 
+import android.os.Parcelable
 import com.example.android.nextreminder.data.local.SimilarEntity
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class SimilarDTO(
     val name: String,
     val type: SimilarItemTypeEnum,
@@ -9,7 +12,7 @@ data class SimilarDTO(
     val wikipediaUrl: String,
     val youtubeVideoUrl: String,
     var isBookmarked: Boolean = false
-) {
+): Parcelable {
     fun toEntity(): SimilarEntity {
         return SimilarEntity(
             name = name,
