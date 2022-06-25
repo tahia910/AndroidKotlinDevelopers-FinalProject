@@ -1,6 +1,7 @@
 package com.example.android.nextreminder.ui.main
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -30,7 +31,11 @@ class MainActivity : AppCompatActivity() {
         // Update the AppBar title with the correct screen name
         setupActionBarWithNavController(navController, appBarConfiguration)
         // Set up the bottom bar
-        binding.navView.setupWithNavController(navController)
+        binding.bottomNavView.setupWithNavController(navController)
+    }
 
+    // Display fragment's SnackBars above the bottom bar
+    fun getBottomNavView(): View {
+        return binding.bottomNavView
     }
 }

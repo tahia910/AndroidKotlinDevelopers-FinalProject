@@ -24,7 +24,7 @@
     <string name="detail_fab">Bookmark</string>
     <string name="home_result_search">Search again</string>
     <string name="home_result_snackbar_title">Removed bookmark for %1$s</string>
-    <string name="home_result_snackbar_action">Add back</string>
+    <string name="home_result_snackbar_action">Undo</string>
 
     <string name="content_description_type">Type: %1$s</string>
     <string name="content_description_add_bookmark">Add bookmark</string>

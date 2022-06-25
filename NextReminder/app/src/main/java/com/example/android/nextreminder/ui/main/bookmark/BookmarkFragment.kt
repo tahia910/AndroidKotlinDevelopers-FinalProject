@@ -12,6 +12,7 @@ import com.example.android.nextreminder.databinding.FragmentBookmarkBinding
 import com.example.android.nextreminder.ui.ItemClickListener
 import com.example.android.nextreminder.ui.SimilarListAdapter
 import com.example.android.nextreminder.ui.detail.DetailActivity
+import com.example.android.nextreminder.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -51,7 +52,10 @@ class BookmarkFragment : Fragment() {
             if (deletedItem == null) return@observe
 
             val message = getString(R.string.home_result_snackbar_title, deletedItem.name)
+
+            val anchorView = (requireActivity() as MainActivity).getBottomNavView()
             Snackbar.make(binding.root, message, Snackbar.LENGTH_SHORT)
+                .setAnchorView(anchorView)
                 .setAction(R.string.home_result_snackbar_action) {
                     viewModel.addBackBookmark(deletedItem)
                 }
