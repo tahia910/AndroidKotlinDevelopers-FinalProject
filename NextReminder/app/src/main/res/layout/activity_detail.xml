@@ -12,6 +12,7 @@
             type="com.example.android.nextreminder.ui.detail.DetailViewModel" />
     </data>
 
+    <!-- Wrap in a CoordinatorLayout for the FAB's shrinking animation -->
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/detailRoot"
         android:layout_width="match_parent"
@@ -21,16 +22,24 @@
             android:id="@+id/detailMotionLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="16dp"
+            android:paddingStart="16dp"
+            android:paddingTop="4dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp"
             app:layoutDescription="@xml/detail_title_motion">
 
             <TextView
                 android:id="@+id/detailItemTitle"
-                style="@style/LargeTitleStyle"
+                style="@style/TitleStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:padding="12dp"
+                android:ellipsize="end"
                 android:text="@{viewModel.similarItem.name}"
+                android:transformPivotX="0dp"
+                android:transformPivotY="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 tools:text="Title" />
 
             <ImageView
@@ -39,66 +48,83 @@
                 android:layout_height="wrap_content"
                 android:contentDescription="@{@string/content_description_type(viewModel.similarItem.type.name())}"
                 android:padding="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailItemTitle"
                 app:tint="?colorPrimaryVariant"
                 app:typeIcon="@{viewModel.similarItem.type}"
-                tools:layout_editor_absoluteX="182dp"
-                tools:layout_editor_absoluteY="86dp"
                 tools:src="@drawable/ic_book" />
 
-            <androidx.constraintlayout.widget.Barrier
-                android:id="@+id/detailBarrier"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:barrierDirection="bottom"
-                app:constraint_referenced_ids="detailItemTitle,detailItemType" />
-
-            <TextView
-                android:id="@+id/detailItemDescription"
-                style="@style/BodyStyle"
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/detailScrollView"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="@{viewModel.similarItem.description}"
+                android:layout_height="0dp"
+                android:fillViewport="true"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detailBarrier"
-                tools:text="@string/long_placeholder" />
+                app:layout_constraintTop_toBottomOf="@id/detailItemType">
 
-            <Button
-                android:id="@+id/itemWikipedia"
-                style="@style/UrlButtonStyle"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/detailItemDescription"
+                        style="@style/BodyStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="@{viewModel.similarItem.description}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="@string/long_placeholder" />
+
+                    <Button
+                        android:id="@+id/itemWikipedia"
+                        style="@style/UrlButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="12dp"
+                        android:text="@string/detail_wikipedia"
+                        app:isGone="@{TextUtils.isEmpty(viewModel.similarItem.wikipediaUrl)}"
+                        app:layout_constraintEnd_toStartOf="@+id/itemYoutube"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/detailItemDescription"
+                        app:url="@{viewModel.similarItem.wikipediaUrl}" />
+
+                    <Button
+                        android:id="@+id/itemYoutube"
+                        style="@style/UrlButtonStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="12dp"
+                        android:text="@string/detail_youtube"
+                        app:isGone="@{TextUtils.isEmpty(viewModel.similarItem.youtubeVideoUrl)}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/itemWikipedia"
+                        app:layout_constraintTop_toBottomOf="@id/detailItemDescription"
+                        app:url="@{viewModel.similarItem.youtubeVideoUrl}" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+
+            <ProgressBar
+                android:id="@+id/detailProgressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                android:text="@string/detail_wikipedia"
-                app:isGone="@{TextUtils.isEmpty(viewModel.similarItem.wikipediaUrl)}"
-                app:layout_constraintEnd_toStartOf="@+id/itemYoutube"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detailItemDescription"
-                app:url="@{viewModel.similarItem.wikipediaUrl}" />
-
-            <Button
-                android:id="@+id/itemYoutube"
-                style="@style/UrlButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                android:text="@string/detail_youtube"
-                app:isGone="@{TextUtils.isEmpty(viewModel.similarItem.youtubeVideoUrl)}"
+                android:layout_gravity="center"
+                app:isGone="@{!viewModel.loading}"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/itemWikipedia"
-                app:layout_constraintTop_toBottomOf="@id/detailItemDescription"
-                app:url="@{viewModel.similarItem.youtubeVideoUrl}" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.motion.widget.MotionLayout>
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            app:isGone="@{!viewModel.loading}" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/detailBookmarkFab"
@@ -111,6 +137,5 @@
             android:text="@string/detail_fab"
             app:icon="@{viewModel.similarItem.isBookmarked ? @drawable/ic_bookmark : @drawable/ic_bookmark_border}"
             tools:icon="@drawable/ic_bookmark_border" />
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

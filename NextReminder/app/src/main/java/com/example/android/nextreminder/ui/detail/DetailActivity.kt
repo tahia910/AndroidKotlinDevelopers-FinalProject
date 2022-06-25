@@ -5,10 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.motion.widget.MotionLayout
 import com.example.android.nextreminder.data.SimilarDTO
 import com.example.android.nextreminder.databinding.ActivityDetailBinding
-import com.google.android.material.appbar.AppBarLayout
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class DetailActivity : AppCompatActivity() {
