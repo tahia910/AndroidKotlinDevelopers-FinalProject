@@ -13,85 +13,86 @@
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/detailRoot"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/detailMotionLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            app:layoutDescription="@xml/detail_title_motion">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/detailItemTitle"
+                style="@style/LargeTitleStyle"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:paddingBottom="68dp">
+                android:padding="12dp"
+                android:text="@{viewModel.similarItem.name}"
+                tools:text="Title" />
 
-                <TextView
-                    android:id="@+id/detailItemTitle"
-                    style="@style/LargeTitleStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:padding="12dp"
-                    android:text="@{viewModel.similarItem.name}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Title" />
+            <ImageView
+                android:id="@+id/detailItemType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@{@string/content_description_type(viewModel.similarItem.type.name())}"
+                android:padding="12dp"
+                app:tint="?colorPrimaryVariant"
+                app:typeIcon="@{viewModel.similarItem.type}"
+                tools:layout_editor_absoluteX="182dp"
+                tools:layout_editor_absoluteY="86dp"
+                tools:src="@drawable/ic_book" />
 
-                <ImageView
-                    android:id="@+id/detailItemType"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@{@string/content_description_type(viewModel.similarItem.type.name())}"
-                    android:padding="12dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/detailItemTitle"
-                    app:tint="?colorPrimaryVariant"
-                    app:typeIcon="@{viewModel.similarItem.type}"
-                    tools:src="@drawable/ic_book" />
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/detailBarrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="bottom"
+                app:constraint_referenced_ids="detailItemTitle,detailItemType" />
 
-                <TextView
-                    android:id="@+id/detailItemDescription"
-                    style="@style/BodyStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
-                    android:text="@{viewModel.similarItem.description}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/detailItemType"
-                    tools:text="@string/long_placeholder" />
+            <TextView
+                android:id="@+id/detailItemDescription"
+                style="@style/BodyStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="@{viewModel.similarItem.description}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailBarrier"
+                tools:text="@string/long_placeholder" />
 
-                <Button
-                    android:id="@+id/itemWikipedia"
-                    style="@style/UrlButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="12dp"
-                    android:text="@string/detail_wikipedia"
-                    app:isGone="@{TextUtils.isEmpty(viewModel.similarItem.wikipediaUrl)}"
-                    app:layout_constraintEnd_toStartOf="@+id/itemYoutube"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/detailItemDescription"
-                    app:url="@{viewModel.similarItem.wikipediaUrl}" />
+            <Button
+                android:id="@+id/itemWikipedia"
+                style="@style/UrlButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:text="@string/detail_wikipedia"
+                app:isGone="@{TextUtils.isEmpty(viewModel.similarItem.wikipediaUrl)}"
+                app:layout_constraintEnd_toStartOf="@+id/itemYoutube"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/detailItemDescription"
+                app:url="@{viewModel.similarItem.wikipediaUrl}" />
 
-                <Button
-                    android:id="@+id/itemYoutube"
-                    style="@style/UrlButtonStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="12dp"
-                    android:text="@string/detail_youtube"
-                    app:isGone="@{TextUtils.isEmpty(viewModel.similarItem.youtubeVideoUrl)}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/itemWikipedia"
-                    app:layout_constraintTop_toBottomOf="@id/detailItemDescription"
-                    app:url="@{viewModel.similarItem.youtubeVideoUrl}" />
+            <Button
+                android:id="@+id/itemYoutube"
+                style="@style/UrlButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:text="@string/detail_youtube"
+                app:isGone="@{TextUtils.isEmpty(viewModel.similarItem.youtubeVideoUrl)}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/itemWikipedia"
+                app:layout_constraintTop_toBottomOf="@id/detailItemDescription"
+                app:url="@{viewModel.similarItem.youtubeVideoUrl}" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </ScrollView>
+        </androidx.constraintlayout.motion.widget.MotionLayout>
 
         <ProgressBar
             android:layout_width="wrap_content"

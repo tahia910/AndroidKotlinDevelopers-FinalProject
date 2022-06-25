@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- The duration actually depends on the swipe velocity, this is the max duration
+         (setting the max duration to 10seconds, visible if the swipe gesture was really slow) -->
+    <Transition
+        app:constraintSetEnd="@+id/end"
+        app:constraintSetStart="@+id/start"
+        app:duration="10000">
+
+        <!-- Start the animation on swipe event (similar to CollapsingToolbar) -->
+        <OnSwipe app:touchAnchorId="@id/detailItemDescription" />
+
+        <KeyFrameSet>
+            <!-- Round the curve toward the end so it doesn't overlap with the title -->
+            <KeyAttribute
+                android:translationY="20dp"
+                app:framePosition="90"
+                app:keyPositionType="parentRelative"
+                app:motionTarget="@id/detailItemType" />
+
+            <!-- Make the type icon rotate once on itself counterclockwise
+                 & enlarge the icon twice its size -->
+            <KeyAttribute
+                android:rotation="-360"
+                app:framePosition="100"
+                android:scaleX="2.0"
+                android:scaleY="2.0"
+                app:motionTarget="@id/detailItemType" />
+
+            <!-- Smoothly align the title text to the type icon -->
+            <KeyAttribute
+                app:framePosition="0"
+                app:motionTarget="@id/detailItemTitle">
+                <!-- 4 is "center" -->
+                <CustomAttribute
+                    app:attributeName="textAlignment"
+                    app:customIntegerValue="4" />
+            </KeyAttribute>
+
+            <KeyAttribute
+                app:framePosition="40"
+                app:motionTarget="@id/detailItemTitle">
+                <!-- 5 is "viewStart" -->
+                <CustomAttribute
+                    app:attributeName="textAlignment"
+                    app:customIntegerValue="5" />
+            </KeyAttribute>
+
+            <KeyAttribute
+                app:framePosition="100"
+                app:motionTarget="@id/detailItemTitle">
+                <!-- 5 is "viewStart" -->
+                <CustomAttribute
+                    app:attributeName="textAlignment"
+                    app:customIntegerValue="5" />
+            </KeyAttribute>
+
+        </KeyFrameSet>
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/detailItemTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="14sp"/>
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/detailItemType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detailItemTitle" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/detailItemTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/detailItemType"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="8dp">
+            <!-- Shrink the title text in the end-->
+            <CustomAttribute
+                app:attributeName="textSize"
+                app:customDimension="11sp"/>
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/detailItemType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/detailItemTitle"/>
+    </ConstraintSet>
+
+</MotionScene>

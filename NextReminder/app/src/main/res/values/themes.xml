@@ -19,8 +19,7 @@
     <style name="LargeTitleStyle">
         <item name="android:textColor">?android:textColorPrimary</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline4
-        </item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline4</item>
     </style>
 
     <style name="TitleStyle">
