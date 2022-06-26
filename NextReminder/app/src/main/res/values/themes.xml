@@ -35,5 +35,6 @@
 
     <style name="UrlButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:textAllCaps">false</item>
+        <item name="android:minHeight">@dimen/accessibility_min_height</item>
     </style>
 </resources>

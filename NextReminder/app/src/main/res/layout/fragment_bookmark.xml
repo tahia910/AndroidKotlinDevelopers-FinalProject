@@ -31,15 +31,17 @@
             style="@style/LargeTitleStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:padding="16dp"
+            android:layout_marginTop="@dimen/padding_medium"
+            android:paddingHorizontal="@dimen/activity_default_margin"
+            android:paddingVertical="@dimen/padding_medium"
             android:text="@string/bookmarks_empty_title" />
 
         <TextView
             style="@style/TitleStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
+            android:paddingHorizontal="@dimen/activity_default_margin"
+            android:paddingVertical="@dimen/padding_medium"
             android:text="@string/bookmarks_empty_subtitle"
             android:textAlignment="center"
             app:isGone="@{viewModel.bookmarkList.size != 0}" />
@@ -48,7 +50,7 @@
             android:id="@+id/goSearchButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_margin="@dimen/padding_medium"
             android:text="@string/bookmarks_empty_button"
             app:isGone="@{viewModel.bookmarkList.size != 0}" />
 

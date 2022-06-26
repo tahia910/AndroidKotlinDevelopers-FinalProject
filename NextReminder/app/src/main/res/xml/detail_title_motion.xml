@@ -112,8 +112,8 @@
             android:id="@+id/detailItemTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="@dimen/padding_medium"
+            android:layout_marginTop="@dimen/padding_large"
             android:scaleX="1.0"
             android:scaleY="1.0"
             app:layout_constraintEnd_toEndOf="parent"
@@ -124,6 +124,7 @@
             android:id="@+id/detailItemType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/detailItemTitle" />
@@ -145,18 +146,19 @@
             android:id="@+id/detailItemTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="@dimen/padding_medium"
+            android:layout_marginTop="@dimen/padding_small"
             android:scaleX="0.8"
             android:scaleY="0.8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/detailItemType"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/detailItemType" />
 
         <Constraint
             android:id="@+id/detailItemType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -164,7 +166,7 @@
             android:id="@id/scrollView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="@dimen/padding_large"
             android:fillViewport="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

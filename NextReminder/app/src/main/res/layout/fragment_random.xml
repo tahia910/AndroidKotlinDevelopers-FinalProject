@@ -16,23 +16,24 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:clipToPadding="false"
             android:gravity="center_horizontal"
             android:orientation="vertical"
-            android:paddingBottom="12dp">
+            android:padding="@dimen/activity_default_margin">
 
             <TextView
                 style="@style/LargeTitleStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:padding="16dp"
+                android:paddingVertical="@dimen/padding_medium"
                 android:text="@string/random_title" />
 
             <TextView
                 style="@style/TitleStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
+                android:paddingVertical="@dimen/padding_medium"
                 android:text="@string/random_subtitle"
                 android:textAlignment="center" />
 
@@ -43,7 +44,7 @@
                 android:layout_margin="24dp"
                 android:contentDescription="@null"
                 android:importantForAccessibility="no"
-                android:padding="16dp"
+                android:paddingVertical="@dimen/padding_medium"
                 android:scaleX="3.0"
                 android:scaleY="3.0"
                 android:src="@drawable/ic_phone_vibrating"
@@ -53,7 +54,7 @@
                 style="@style/BodyStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
+                android:paddingVertical="@dimen/padding_medium"
                 android:text="@string/random_button_helper"
                 android:textAlignment="center" />
 
