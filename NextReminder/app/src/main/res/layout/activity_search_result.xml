@@ -12,59 +12,76 @@
             type="com.example.android.nextreminder.ui.searchresult.SearchResultViewModel" />
     </data>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            style="@style/LargeTitleStyle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?colorSurface"
-            android:elevation="2dp"
-            android:padding="@dimen/padding_small"
-            android:text="@{@string/search_result_title(viewModel.queryString)}"
-            app:isGone="@{viewModel.queryString == null || TextUtils.isEmpty(viewModel.queryString)}"
-            tools:text="@string/search_result_title" />
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/itemList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            app:bindListData="@{viewModel.resultList}"
-            app:isGone="@{viewModel.resultList.size == 0}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:itemCount="6"
-            tools:listitem="@layout/list_item" />
+            <TextView
+                style="@style/LargeTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?colorSurface"
+                android:elevation="2dp"
+                android:padding="@dimen/padding_small"
+                android:text="@{@string/search_result_title(viewModel.queryString)}"
+                app:isGone="@{viewModel.queryString == null || TextUtils.isEmpty(viewModel.queryString)}"
+                tools:text="@string/search_result_title" />
 
-        <TextView
-            style="@style/TitleStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_large"
-            android:paddingHorizontal="@dimen/activity_default_margin"
-            android:paddingVertical="@dimen/padding_medium"
-            android:text="@string/error_empty_result"
-            android:textAlignment="center"
-            app:isGone="@{viewModel.loading || viewModel.resultList.size != 0 || viewModel.queryString == null}" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/itemList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                app:bindListData="@{viewModel.resultList}"
+                app:isGone="@{viewModel.resultList.size == 0}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="6"
+                tools:listitem="@layout/list_item" />
 
-        <Button
-            android:id="@+id/searchAgainButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_medium"
-            android:onClick="@{() -> viewModel.searchAgain()}"
-            android:text="@string/search_result_search"
-            app:isGone="@{viewModel.loading || viewModel.resultList.size != 0}" />
+            <TextView
+                style="@style/TitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_large"
+                android:paddingHorizontal="@dimen/activity_default_margin"
+                android:paddingVertical="@dimen/padding_medium"
+                android:text="@string/error_empty_result"
+                android:textAlignment="center"
+                app:isGone="@{viewModel.loading || viewModel.resultList.size != 0 || viewModel.queryString == null}" />
 
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/padding_large"
-            app:isGone="@{!viewModel.loading}" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/searchAgainButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:onClick="@{() -> viewModel.searchAgain()}"
+                android:text="@string/search_result_search"
+                app:isGone="@{viewModel.loading || viewModel.resultList.size != 0}" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/searchAgainImage"
+                android:layout_width="wrap_content"
+                android:layout_height="250dp"
+                android:contentDescription="@null"
+                android:importantForAccessibility="no"
+                app:isGone="@{viewModel.loading || viewModel.resultList.size != 0}"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/no_results_found" />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/padding_large"
+                app:isGone="@{!viewModel.loading}"
+                tools:visibility="gone"/>
+        </LinearLayout>
+    </ScrollView>
 </layout>

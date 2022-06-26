@@ -1,24 +1,17 @@
 package com.example.android.nextreminder.ui.searchresult
 
-import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.example.android.nextreminder.R
-import com.example.android.nextreminder.data.SimilarDTO
 import com.example.android.nextreminder.data.SimilarItemTypeEnum
 import com.example.android.nextreminder.databinding.ActivitySearchResultBinding
 import com.example.android.nextreminder.ui.ItemClickListener
 import com.example.android.nextreminder.ui.SimilarListAdapter
-import com.example.android.nextreminder.ui.detail.DetailActivity
 import com.example.android.nextreminder.utils.openDetailWithTransition
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import android.util.Pair as UtilPair
 
 class SearchResultActivity : AppCompatActivity() {
 

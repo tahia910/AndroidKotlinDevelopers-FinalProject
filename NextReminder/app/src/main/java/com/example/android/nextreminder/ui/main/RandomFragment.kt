@@ -7,10 +7,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.example.android.nextreminder.R
 import com.example.android.nextreminder.databinding.FragmentRandomBinding
 import com.example.android.nextreminder.ui.detail.DetailActivity
 import com.example.android.nextreminder.utils.ShakeDetector
@@ -43,10 +41,6 @@ class RandomFragment : Fragment() {
                 viewModel.getRandomBookmark()
             }
         )
-
-        // Make the phone image to shake (vibrate) indefinitely as a cue to the user
-        val animation = AnimationUtils.loadAnimation(requireContext(), R.anim.shake)
-        binding.randomShakingImage.startAnimation(animation)
 
         return binding.root
     }

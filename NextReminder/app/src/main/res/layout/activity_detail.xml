@@ -22,7 +22,6 @@
             android:id="@+id/detailMotionLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingHorizontal="@dimen/activity_default_margin"
             app:layoutDescription="@xml/detail_title_motion">
 
             <TextView
@@ -31,6 +30,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
+                android:paddingStart="@dimen/padding_medium"
+                android:paddingEnd="0dp"
                 android:text="@{viewModel.similarItem.name}"
                 android:transformPivotX="0dp"
                 android:transformPivotY="0dp"
@@ -45,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:contentDescription="@{@string/content_description_type(viewModel.similarItem.type.name())}"
-                android:padding="12dp"
+                android:padding="@dimen/padding_medium"
                 android:transitionName="@string/transition_item_type"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +59,8 @@
                 android:id="@+id/detailClose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_default_margin"
+                android:layout_marginTop="@dimen/padding_small"
+                android:layout_marginEnd="@dimen/padding_small"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/content_description_close"
                 android:foreground="?selectableItemBackground"
@@ -67,7 +69,8 @@
                 android:onClick="@{() -> viewModel.closeDetail()}"
                 android:src="@drawable/ic_close"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="?android:textColorPrimary" />
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/detailScrollView"
@@ -83,6 +86,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:paddingHorizontal="@dimen/activity_default_margin"
                     android:paddingBottom="@dimen/padding_above_fab">
 
                     <TextView

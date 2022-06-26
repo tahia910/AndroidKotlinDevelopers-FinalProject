@@ -10,49 +10,66 @@
             type="com.example.android.nextreminder.ui.main.MainViewModel" />
     </data>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/bookmarkList"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:bindListData="@{viewModel.bookmarkList}"
-            app:isGone="@{viewModel.bookmarkList.size == 0}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:itemCount="6"
-            tools:listitem="@layout/list_item"
-            tools:visibility="gone" />
-
-        <TextView
-            style="@style/LargeTitleStyle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_medium"
-            android:paddingHorizontal="@dimen/activity_default_margin"
-            android:paddingVertical="@dimen/padding_medium"
-            android:text="@string/bookmarks_empty_title" />
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-        <TextView
-            style="@style/TitleStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="@dimen/activity_default_margin"
-            android:paddingVertical="@dimen/padding_medium"
-            android:text="@string/bookmarks_empty_subtitle"
-            android:textAlignment="center"
-            app:isGone="@{viewModel.bookmarkList.size != 0}" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/bookmarkList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:bindListData="@{viewModel.bookmarkList}"
+                app:isGone="@{viewModel.bookmarkList.size == 0}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="6"
+                tools:listitem="@layout/list_item"
+                tools:visibility="gone" />
 
-        <Button
-            android:id="@+id/goSearchButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_medium"
-            android:text="@string/bookmarks_empty_button"
-            app:isGone="@{viewModel.bookmarkList.size != 0}" />
+            <TextView
+                style="@style/LargeTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:paddingHorizontal="@dimen/activity_default_margin"
+                android:paddingVertical="@dimen/padding_medium"
+                android:text="@string/bookmarks_empty_title" />
 
-    </LinearLayout>
+            <TextView
+                style="@style/TitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/activity_default_margin"
+                android:paddingVertical="@dimen/padding_medium"
+                android:text="@string/bookmarks_empty_subtitle"
+                android:textAlignment="center"
+                app:isGone="@{viewModel.bookmarkList.size != 0}" />
+
+            <Button
+                android:id="@+id/goSearchButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_medium"
+                android:text="@string/bookmarks_empty_button"
+                app:isGone="@{viewModel.bookmarkList.size != 0}" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/randomShakingImage"
+                android:layout_width="wrap_content"
+                android:layout_height="250dp"
+                android:layout_marginHorizontal="@dimen/activity_default_margin"
+                android:contentDescription="@null"
+                android:importantForAccessibility="no"
+                app:isGone="@{viewModel.bookmarkList.size != 0}"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/tumbleweed_rolling" />
+
+        </LinearLayout>
+    </ScrollView>
 </layout>

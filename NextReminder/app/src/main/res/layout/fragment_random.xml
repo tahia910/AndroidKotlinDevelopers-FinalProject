@@ -37,18 +37,16 @@
                 android:text="@string/random_subtitle"
                 android:textAlignment="center" />
 
-            <ImageView
+            <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/randomShakingImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="24dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="@dimen/padding_medium"
                 android:contentDescription="@null"
                 android:importantForAccessibility="no"
-                android:paddingVertical="@dimen/padding_medium"
-                android:scaleX="3.0"
-                android:scaleY="3.0"
-                android:src="@drawable/ic_phone_vibrating"
-                app:tint="?android:textColorPrimary" />
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/shake_phone" />
 
             <TextView
                 style="@style/BodyStyle"

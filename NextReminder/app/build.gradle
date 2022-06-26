@@ -73,6 +73,9 @@ dependencies {
     implementation 'androidx.room:room-ktx:2.4.2'
     kapt 'androidx.room:room-compiler:2.4.2'
 
+    // Lottie (Random screen "item found" animation)
+    implementation 'com.airbnb.android:lottie:5.2.0'
+
     // Test
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

@@ -26,7 +26,7 @@
     <!-- Random screen -->
     <string name="random_title">No inspiration?</string>
     <string name="random_subtitle">Shake your phone to get a random suggestion from your bookmarks!</string>
-    <string name="random_button_helper">(Or tap this button)</string>
+    <string name="random_button_helper">(Or tap the button below)</string>
     <string name="random_button">Random</string>
 
     <!-- Bookmark list screen -->
