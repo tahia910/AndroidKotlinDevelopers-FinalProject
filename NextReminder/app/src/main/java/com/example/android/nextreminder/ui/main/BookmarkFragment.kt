@@ -5,13 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.android.nextreminder.R
 import com.example.android.nextreminder.databinding.FragmentBookmarkBinding
 import com.example.android.nextreminder.ui.ItemClickListener
 import com.example.android.nextreminder.ui.SimilarListAdapter
-import com.example.android.nextreminder.ui.detail.DetailActivity
+import com.example.android.nextreminder.utils.openDetailWithTransition
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -32,7 +33,12 @@ class BookmarkFragment : Fragment() {
             ItemClickListener(
                 bookmarkClickListener = { item -> viewModel.removeBookmark(item) },
                 itemClickListener = { item ->
-                    DetailActivity.startActivity(requireContext(), item)
+                    val itemRoot = binding.bookmarkList.findViewWithTag<ConstraintLayout>(item)
+                    openDetailWithTransition(
+                        item = item,
+                        itemRoot = itemRoot,
+                        activity = requireActivity()
+                    )
                 }
             )
         )

@@ -20,6 +20,12 @@ class DetailActivity : AppCompatActivity() {
             }
             context.startActivity(intent)
         }
+
+        fun newIntent(context: Context, similarItem: SimilarDTO): Intent {
+            return Intent(context, DetailActivity::class.java).apply {
+                putExtra(EXTRA_SIMILAR_ITEM, similarItem)
+            }
+        }
     }
 
     private val viewModel: DetailViewModel by viewModel()

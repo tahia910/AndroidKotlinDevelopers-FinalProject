@@ -11,9 +11,11 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+
         <item name="android:textColorPrimary">@color/black</item>
         <item name="chipStyle">@style/Widget.MaterialComponents.Chip.Filter</item>
+        <!-- Enable window content transitions for shared element transition -->
+        <item name="android:windowActivityTransitions">true</item>
     </style>
 
     <style name="LargeTitleStyle">
