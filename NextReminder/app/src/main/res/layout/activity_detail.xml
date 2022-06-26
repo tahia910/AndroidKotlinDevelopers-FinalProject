@@ -35,7 +35,7 @@
                 android:transformPivotX="0dp"
                 android:transformPivotY="0dp"
                 android:transitionName="@string/transition_item_title"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/detailClose"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Title" />
@@ -53,6 +53,21 @@
                 app:tint="?colorPrimaryVariant"
                 app:typeIcon="@{viewModel.similarItem.type}"
                 tools:src="@drawable/ic_book" />
+
+            <ImageButton
+                android:id="@+id/detailClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_default_margin"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/content_description_close"
+                android:foreground="?selectableItemBackground"
+                android:minWidth="@dimen/accessibility_min_height"
+                android:minHeight="@dimen/accessibility_min_height"
+                android:onClick="@{() -> viewModel.closeDetail()}"
+                android:src="@drawable/ic_close"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.core.widget.NestedScrollView
                 android:id="@+id/detailScrollView"

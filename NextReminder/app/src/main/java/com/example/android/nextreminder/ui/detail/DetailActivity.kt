@@ -56,5 +56,10 @@ class DetailActivity : AppCompatActivity() {
             Toast.makeText(this, messageStringResource, Toast.LENGTH_SHORT).show()
             viewModel.toastDisplayed()
         }
+
+        viewModel.moveBack.observe(this) {
+            // We use onBackPressed() instead of finish() to keep the transition animation
+            if (it == true) onBackPressed()
+        }
     }
 }

@@ -45,6 +45,7 @@
     <string name="content_description_type">Type: %1$s</string>
     <string name="content_description_add_bookmark">Add bookmark</string>
     <string name="content_description_remove_bookmark">Remove bookmark</string>
+    <string name="content_description_close">Close details</string>
 
     <!-- Common error message-->
     <string name="error_empty_keyword">Can\'t search without keyword(s)!</string>

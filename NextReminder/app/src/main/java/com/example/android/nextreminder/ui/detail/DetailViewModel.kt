@@ -17,6 +17,9 @@ class DetailViewModel(private val repository: SimilarRepository) : ViewModel() {
         get() = _similarItem
 
     fun setSimilarItem(similarItem: SimilarDTO) {
+        // If the user had changed the bookmark status before a configuration change, this
+        // would set back the original status, so we keep the latest state
+        if (this._similarItem.value != null) return
         this._similarItem.value = similarItem
     }
 
@@ -65,8 +68,14 @@ class DetailViewModel(private val repository: SimilarRepository) : ViewModel() {
         }
     }
 
+    fun closeDetail() {
+        _moveBack.postValue(true)
+    }
+
     private val _displayErrorToast = MutableLiveData<Int?>()
     val displayErrorToast: LiveData<Int?> = _displayErrorToast
+    private val _moveBack = MutableLiveData(false)
+    val moveBack: LiveData<Boolean> = _moveBack
 
     fun toastDisplayed() {
         _displayErrorToast.value = null

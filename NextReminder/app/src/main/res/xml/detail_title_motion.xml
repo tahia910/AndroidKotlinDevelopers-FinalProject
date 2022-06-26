@@ -26,11 +26,11 @@
                 app:motionTarget="@id/detailItemType" />
 
             <!-- Make the type icon rotate once on itself counterclockwise
-                 & enlarge the icon twice its size -->
+                 & enlarge the icon a little -->
             <KeyAttribute
                 android:rotation="-360"
-                android:scaleX="2.0"
-                android:scaleY="2.0"
+                android:scaleX="1.5"
+                android:scaleY="1.5"
                 app:framePosition="100"
                 app:motionTarget="@id/detailItemType" />
         </KeyFrameSet>
@@ -112,11 +112,11 @@
             android:id="@+id/detailItemTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/padding_medium"
+            android:layout_marginStart="@dimen/activity_default_margin"
             android:layout_marginTop="@dimen/padding_large"
             android:scaleX="1.0"
             android:scaleY="1.0"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/detailClose"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -150,7 +150,7 @@
             android:layout_marginTop="@dimen/padding_small"
             android:scaleX="0.8"
             android:scaleY="0.8"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/detailClose"
             app:layout_constraintStart_toEndOf="@id/detailItemType"
             app:layout_constraintTop_toTopOf="@id/detailItemType" />
 
@@ -158,7 +158,7 @@
             android:id="@+id/detailItemType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_small"
+            android:layout_marginTop="@dimen/activity_default_margin"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
