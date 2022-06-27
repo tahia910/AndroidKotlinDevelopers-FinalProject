@@ -67,7 +67,7 @@
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/searchAgainImage"
                 android:layout_width="wrap_content"
-                android:layout_height="250dp"
+                android:layout_height="@dimen/animation_image_height"
                 android:contentDescription="@null"
                 android:importantForAccessibility="no"
                 app:isGone="@{viewModel.loading || viewModel.resultList.size != 0}"
@@ -75,13 +75,19 @@
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/no_results_found" />
 
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/padding_large"
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/randomLoadingImage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/animation_image_height"
+                android:layout_margin="@dimen/activity_default_margin"
+                android:contentDescription="@null"
+                android:importantForAccessibility="no"
                 app:isGone="@{!viewModel.loading}"
-                tools:visibility="gone"/>
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/searching"
+                tools:visibility="gone" />
+
         </LinearLayout>
     </ScrollView>
 </layout>

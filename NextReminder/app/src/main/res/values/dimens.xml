@@ -10,4 +10,6 @@
     <dimen name="padding_above_fab">64dp</dimen>
 
     <dimen name="accessibility_min_height">48dp</dimen>
+
+    <dimen name="animation_image_height">250dp</dimen>
 </resources>

@@ -62,7 +62,7 @@
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/randomShakingImage"
                 android:layout_width="wrap_content"
-                android:layout_height="250dp"
+                android:layout_height="@dimen/animation_image_height"
                 android:layout_marginHorizontal="@dimen/activity_default_margin"
                 android:contentDescription="@null"
                 android:importantForAccessibility="no"
