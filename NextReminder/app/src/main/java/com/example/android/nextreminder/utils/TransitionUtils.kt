@@ -14,7 +14,7 @@ import com.example.android.nextreminder.ui.detail.DetailActivity
  *
  * https://developer.android.com/training/transitions/start-activity#start-with-element
  */
-fun openDetailWithTransition(item: SimilarDTO, itemRoot: ConstraintLayout, activity: Activity) {
+fun openDetailWithSharedElementTransition(item: SimilarDTO, itemRoot: ConstraintLayout, activity: Activity) {
     // Set the destination screen
     val intent = DetailActivity.newIntent(activity, item)
 

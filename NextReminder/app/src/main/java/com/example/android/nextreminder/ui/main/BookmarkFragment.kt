@@ -12,7 +12,7 @@ import com.example.android.nextreminder.R
 import com.example.android.nextreminder.databinding.FragmentBookmarkBinding
 import com.example.android.nextreminder.ui.ItemClickListener
 import com.example.android.nextreminder.ui.SimilarListAdapter
-import com.example.android.nextreminder.utils.openDetailWithTransition
+import com.example.android.nextreminder.utils.openDetailWithSharedElementTransition
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -34,7 +34,7 @@ class BookmarkFragment : Fragment() {
                 bookmarkClickListener = { item -> viewModel.removeBookmark(item) },
                 itemClickListener = { item ->
                     val itemRoot = binding.bookmarkList.findViewWithTag<ConstraintLayout>(item)
-                    openDetailWithTransition(
+                    openDetailWithSharedElementTransition(
                         item = item,
                         itemRoot = itemRoot,
                         activity = requireActivity()

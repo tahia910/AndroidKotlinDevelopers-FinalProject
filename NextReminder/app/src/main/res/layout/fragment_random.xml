@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -13,29 +14,38 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:clipChildren="false"
-            android:clipToPadding="false"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:padding="@dimen/activity_default_margin">
+            android:clipToPadding="false">
 
             <TextView
+                android:id="@+id/randomTitle"
                 style="@style/LargeTitleStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/activity_default_margin"
                 android:paddingVertical="@dimen/padding_medium"
-                android:text="@string/random_title" />
+                android:text="@{viewModel.loading ? @string/random_loading : @string/random_title}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/random_title" />
 
             <TextView
+                android:id="@+id/randomSubtitle"
                 style="@style/TitleStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/activity_default_margin"
                 android:paddingVertical="@dimen/padding_medium"
                 android:text="@string/random_subtitle"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                app:isGone="@{viewModel.loading}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/randomTitle" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/randomShakingImage"
@@ -44,24 +54,58 @@
                 android:layout_margin="@dimen/padding_medium"
                 android:contentDescription="@null"
                 android:importantForAccessibility="no"
+                app:isGone="@{viewModel.loading}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/randomSubtitle"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/shake_phone" />
 
             <TextView
+                android:id="@+id/randomButtonCaption"
                 style="@style/BodyStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="@dimen/activity_default_margin"
                 android:paddingVertical="@dimen/padding_medium"
                 android:text="@string/random_button_helper"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                app:isGone="@{viewModel.loading}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/randomShakingImage" />
 
             <Button
+                android:id="@+id/randomButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_default_margin"
                 android:onClick="@{() -> viewModel.getRandomBookmark()}"
-                android:text="@string/random_button" />
+                android:text="@string/random_button"
+                app:isGone="@{viewModel.loading}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/randomButtonCaption" />
 
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/randomLoadingImage"
+                android:layout_width="0dp"
+                android:layout_height="300dp"
+                android:layout_margin="@dimen/activity_default_margin"
+                android:contentDescription="@null"
+                android:importantForAccessibility="no"
+                app:isGone="@{!viewModel.loading}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/randomTitle"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/searching"
+                tools:visibility="gone" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>

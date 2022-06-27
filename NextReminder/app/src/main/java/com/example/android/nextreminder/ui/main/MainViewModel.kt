@@ -6,6 +6,7 @@ import com.example.android.nextreminder.data.SimilarDTO
 import com.example.android.nextreminder.data.SimilarRepository
 import com.example.android.nextreminder.data.local.entityToDtoList
 import com.example.android.nextreminder.data.network.Result
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: SimilarRepository) : ViewModel() {
@@ -19,17 +20,36 @@ class MainViewModel(private val repository: SimilarRepository) : ViewModel() {
     val queryString: LiveData<String>
         get() = _queryString
 
+    val loading = MutableLiveData(false)
+
+    /**
+     * Cancel the suggestion request and reset the UI
+     */
+    fun cancelRandomRequest() {
+        if (loading.value == true) loading.postValue(false)
+    }
+
     fun saveKeyword(text: String) {
         _queryString.value = text
     }
 
     fun getRandomBookmark() {
+        if (loading.value == true) return
+
+        loading.postValue(true)
         if (bookmarkList.value.isNullOrEmpty()) {
             _displayErrorToast.postValue(R.string.error_no_bookmarks)
+            loading.postValue(false)
             return
         }
-        val randomBookmark = bookmarkList.value?.random() ?: return
-        _moveToDetail.postValue(randomBookmark)
+
+        viewModelScope.launch {
+            val randomBookmark = bookmarkList.value?.random() ?: return@launch
+            // Display a loading screen during a second and half
+            delay(1500)
+            // Make sure the user did not cancel the action
+            if (loading.value == true) _moveToDetail.postValue(randomBookmark)
+        }
     }
 
     fun removeBookmark(item: SimilarDTO) {

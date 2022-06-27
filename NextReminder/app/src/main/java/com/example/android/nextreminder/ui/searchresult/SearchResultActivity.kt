@@ -10,7 +10,7 @@ import com.example.android.nextreminder.data.SimilarItemTypeEnum
 import com.example.android.nextreminder.databinding.ActivitySearchResultBinding
 import com.example.android.nextreminder.ui.ItemClickListener
 import com.example.android.nextreminder.ui.SimilarListAdapter
-import com.example.android.nextreminder.utils.openDetailWithTransition
+import com.example.android.nextreminder.utils.openDetailWithSharedElementTransition
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchResultActivity : AppCompatActivity() {
@@ -45,7 +45,11 @@ class SearchResultActivity : AppCompatActivity() {
                 bookmarkClickListener = { item -> viewModel.addOrRemoveBookmark(item) },
                 itemClickListener = { item ->
                     val itemRoot = binding.itemList.findViewWithTag<ConstraintLayout>(item)
-                    openDetailWithTransition(item = item, itemRoot = itemRoot, activity = this)
+                    openDetailWithSharedElementTransition(
+                        item = item,
+                        itemRoot = itemRoot,
+                        activity = this
+                    )
                 }
             )
         )

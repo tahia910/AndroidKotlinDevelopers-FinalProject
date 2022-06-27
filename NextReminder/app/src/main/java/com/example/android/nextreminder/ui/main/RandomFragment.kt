@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import com.example.android.nextreminder.databinding.FragmentRandomBinding
 import com.example.android.nextreminder.ui.detail.DetailActivity
@@ -42,6 +43,15 @@ class RandomFragment : Fragment() {
             }
         )
 
+        // If the user presses the back button, we take that as a cancel request
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    viewModel.cancelRandomRequest()
+                }
+            }
+        )
+
         return binding.root
     }
 
@@ -61,6 +71,8 @@ class RandomFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
+        // When the user comes back from the detail screen
+        viewModel.cancelRandomRequest()
         sensorManager.registerListener(shakeDetector, accelerometer, SensorManager.SENSOR_DELAY_UI)
     }
 

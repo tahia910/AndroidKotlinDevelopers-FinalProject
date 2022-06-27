@@ -38,7 +38,8 @@
                 android:layout_marginTop="@dimen/padding_medium"
                 android:paddingHorizontal="@dimen/activity_default_margin"
                 android:paddingVertical="@dimen/padding_medium"
-                android:text="@string/bookmarks_empty_title" />
+                android:text="@string/bookmarks_empty_title"
+                app:isGone="@{viewModel.bookmarkList.size != 0}" />
 
             <TextView
                 style="@style/TitleStyle"

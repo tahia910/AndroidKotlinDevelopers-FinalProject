@@ -35,6 +35,11 @@ class MainActivity : AppCompatActivity() {
         // Set up the bottom bar
         binding.bottomNavView.setupWithNavController(navController)
 
+        navController.addOnDestinationChangedListener { _, _, _ ->
+            // If the user opens another tab while making a request, cancel it
+            viewModel.cancelRandomRequest()
+        }
+
         // Observe the database to have the data ready as early as possible
         viewModel.bookmarkList.observe(this) {
             // TODO: suggest to have a look at bookmarks?
