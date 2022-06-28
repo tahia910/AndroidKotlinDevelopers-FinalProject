@@ -82,6 +82,7 @@
             android:layout_marginTop="@dimen/padding_small"
             android:layout_marginEnd="@dimen/padding_large"
             android:ellipsize="end"
+            android:lineSpacingMultiplier="1.1"
             android:maxLines="5"
             android:tag="@string/transition_item_description"
             android:text="@{similarItem.description}"

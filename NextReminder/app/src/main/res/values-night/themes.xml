@@ -11,7 +11,11 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+
+        <!-- Both text colors respects the accessibility requirements of background/foreground
+             contrast radio, including in dark theme (secondary text colors are around 10:1)-->
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/grey</item>
         <item name="chipStyle">@style/Widget.MaterialComponents.Chip.Filter</item>
         <!-- Enable window content transitions for shared element transition -->
         <item name="android:windowActivityTransitions">true</item>

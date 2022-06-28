@@ -29,8 +29,8 @@
                 style="@style/TitleStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:ellipsize="end"
                 android:layout_marginStart="@dimen/padding_large"
+                android:ellipsize="end"
                 android:text="@{viewModel.similarItem.name}"
                 android:transformPivotX="0dp"
                 android:transformPivotY="0dp"
@@ -94,6 +94,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/padding_large"
+                        android:lineSpacingMultiplier="1.5"
                         android:text="@{viewModel.similarItem.description}"
                         android:transitionName="@string/transition_item_description"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -144,7 +145,7 @@
 
         </androidx.constraintlayout.motion.widget.MotionLayout>
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/detailBookmarkFab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -152,8 +153,7 @@
             android:layout_margin="@dimen/activity_default_margin"
             android:contentDescription="@{viewModel.similarItem.isBookmarked ? @string/content_description_remove_bookmark : @string/content_description_add_bookmark}"
             android:onClick="@{() -> viewModel.addOrRemoveBookmark()}"
-            android:text="@string/detail_fab"
-            app:icon="@{viewModel.similarItem.isBookmarked ? @drawable/ic_bookmark : @drawable/ic_bookmark_border}"
-            tools:icon="@drawable/ic_bookmark_border" />
+            android:src="@{viewModel.similarItem.isBookmarked ? @drawable/ic_bookmark : @drawable/ic_bookmark_border}"
+            tools:src="@drawable/ic_bookmark_border" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

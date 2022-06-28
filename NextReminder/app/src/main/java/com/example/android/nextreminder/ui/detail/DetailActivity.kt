@@ -43,14 +43,6 @@ class DetailActivity : AppCompatActivity() {
         val similarItem = intent.getParcelableExtra<SimilarDTO>(EXTRA_SIMILAR_ITEM) ?: return
         viewModel.setSimilarItem(similarItem)
 
-        viewModel.similarItem.observe(this) { item ->
-            if (item.isBookmarked) {
-                binding.detailBookmarkFab.shrink()
-            } else {
-                binding.detailBookmarkFab.extend()
-            }
-        }
-
         viewModel.displayErrorToast.observe(this) { messageStringResource ->
             if (messageStringResource == null) return@observe
             Toast.makeText(this, messageStringResource, Toast.LENGTH_SHORT).show()
