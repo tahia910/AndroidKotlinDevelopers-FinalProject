@@ -10,7 +10,8 @@
     <string name="home_subtitle">Discover music, movies, TV shows, books, games and podcasts based on what you like.</string>
     <string name="search">Search</string>
     <string name="search_hint">Search with the media name</string>
-    <string name="search_helper">You can add several names by separating them with a comma.</string>
+    <string name="search_helper">Hint: you can add several names by separating them with a comma
+        .</string>
     <string name="chip_title">Choose one filter:</string>
     <string name="chip_music">Music</string>
     <string name="chip_movies">Movies</string>
@@ -49,7 +50,7 @@
     <string name="content_description_close">Close details</string>
 
     <!-- Common error message-->
-    <string name="error_empty_keyword">Can\'t search without keyword(s)!</string>
+    <string name="error_empty_keyword">Error: you can\'t search without keyword(s)!</string>
     <string name="error_network">Network error. Please try again.</string>
     <string name="error_extra_parsing">Unknown error. Please try again.</string>
     <string name="error_empty_result">Sorry, no results found… \nTry searching something else?</string>

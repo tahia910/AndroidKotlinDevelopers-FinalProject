@@ -35,12 +35,12 @@
 
             <TextView
                 android:id="@+id/homeSubTitle"
+                style="@style/BodyStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingVertical="@dimen/padding_medium"
                 android:text="@string/home_subtitle"
                 android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/homeTitle" />
