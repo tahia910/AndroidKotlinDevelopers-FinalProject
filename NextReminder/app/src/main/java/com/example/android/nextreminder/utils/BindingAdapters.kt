@@ -34,6 +34,17 @@ fun setUrl(view: View, url: String) {
     }
 }
 
+@BindingAdapter("bookmarkContentDescription")
+fun setContentDescription(view: View, item: SimilarDTO) {
+    val string = if (item.isBookmarked) {
+        R.string.content_description_remove_bookmark
+    } else {
+        R.string.content_description_add_bookmark
+    }
+    val contentDescription = view.context.getString(string, item.name)
+    view.contentDescription = contentDescription
+}
+
 @BindingAdapter("typeIcon")
 fun setTypeIcon(view: ImageView, type: SimilarItemTypeEnum) {
     val icon = when (type) {

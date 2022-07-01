@@ -4,16 +4,16 @@
     <item
         android:id="@+id/homeFragment"
         android:icon="@drawable/ic_search"
-        android:title="@string/title_home" />
+        android:title="@string/bottom_nav_home" />
 
     <item
         android:id="@+id/randomFragment"
         android:icon="@drawable/ic_random"
-        android:title="@string/title_random" />
+        android:title="@string/bottom_nav_random" />
 
     <item
         android:id="@+id/bookmarkFragment"
         android:icon="@drawable/ic_bookmark_border"
-        android:title="@string/title_bookmarks" />
+        android:title="@string/bottom_nav_bookmarks" />
 
 </menu>

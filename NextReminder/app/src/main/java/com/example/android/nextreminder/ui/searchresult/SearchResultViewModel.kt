@@ -97,7 +97,7 @@ class SearchResultViewModel(private val repository: SimilarRepository) : ViewMod
 
     fun displayExtraParsingErrorToast() {
         // Display an error toast and the "Search Again" button to go back
-        _displayErrorToast.postValue(R.string.error_extra_parsing)
+        _displayErrorToast.postValue(R.string.error_search_result_extra_parsing)
     }
 
     private fun displayBookmarkErrorToast(wasOriginallyBookmarked: Boolean) {

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.android.nextreminder.R
 import com.example.android.nextreminder.data.SimilarDTO
 import com.example.android.nextreminder.databinding.ActivityDetailBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -40,7 +41,12 @@ class DetailActivity : AppCompatActivity() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        val similarItem = intent.getParcelableExtra<SimilarDTO>(EXTRA_SIMILAR_ITEM) ?: return
+        val similarItem = intent.getParcelableExtra<SimilarDTO>(EXTRA_SIMILAR_ITEM)
+        if (similarItem == null) {
+            Toast.makeText(this, R.string.error_detail_extra_parsing, Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
         viewModel.setSimilarItem(similarItem)
 
         viewModel.displayErrorToast.observe(this) { messageStringResource ->

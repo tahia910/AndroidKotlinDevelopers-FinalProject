@@ -47,7 +47,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/homeTextField"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/TextFieldStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:hint="@string/search_hint"
@@ -59,7 +59,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/homeSubTitle"
-                app:startIconContentDescription="@string/search"
+                app:startIconContentDescription="@null"
                 app:startIconDrawable="@drawable/ic_search">
 
                 <com.google.android.material.textfield.TextInputEditText

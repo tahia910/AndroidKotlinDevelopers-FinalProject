@@ -151,9 +151,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/activity_default_margin"
-            android:contentDescription="@{viewModel.similarItem.isBookmarked ? @string/content_description_remove_bookmark : @string/content_description_add_bookmark}"
             android:onClick="@{() -> viewModel.addOrRemoveBookmark()}"
             android:src="@{viewModel.similarItem.isBookmarked ? @drawable/ic_bookmark : @drawable/ic_bookmark_border}"
+            app:bookmarkContentDescription="@{viewModel.similarItem}"
             tools:src="@drawable/ic_bookmark_border" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

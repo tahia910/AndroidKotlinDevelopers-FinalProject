@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">Next Reminder</string>
-    <string name="title_home">Search</string>
-    <string name="title_random">Random</string>
-    <string name="title_bookmarks">Bookmarks</string>
+    <string name="title_home">Search Recommendation</string>
+    <string name="title_random">Random Recommendation</string>
+    <string name="title_bookmarks">Your Bookmarks</string>
     <string name="title_search_result">Search Result</string>
+    <string name="bottom_nav_home">Search</string>
+    <string name="bottom_nav_random">Random</string>
+    <string name="bottom_nav_bookmarks">Bookmarks</string>
 
     <!-- Search screen -->
     <string name="home_title">What media did you enjoy recently?</string>
@@ -45,18 +48,19 @@
 
     <!-- Accessibility -->
     <string name="content_description_type">Type: %1$s</string>
-    <string name="content_description_add_bookmark">Add bookmark</string>
-    <string name="content_description_remove_bookmark">Remove bookmark</string>
+    <string name="content_description_add_bookmark">Add bookmark for %1$s</string>
+    <string name="content_description_remove_bookmark">Remove bookmark for %1$s</string>
     <string name="content_description_close">Close details</string>
 
     <!-- Common error message-->
     <string name="error_empty_keyword">Error: you can\'t search without keyword(s)!</string>
     <string name="error_network">Network error. Please try again.</string>
-    <string name="error_extra_parsing">Unknown error. Please try again.</string>
+    <string name="error_search_result_extra_parsing">Unknown error. Please try again.</string>
     <string name="error_empty_result">Sorry, no results found… \nTry searching something else?</string>
     <string name="error_removing_bookmark">Error removing the bookmark</string>
     <string name="error_adding_bookmark">Error adding the bookmark</string>
     <string name="error_no_bookmarks">No bookmarks yet</string>
+    <string name="error_detail_extra_parsing">Error retrieving the details</string>
 
     <!-- Transition (used with android:transitionName attribute on origin & destination) -->
     <string name="transition_item_title">itemTitle</string>
