@@ -88,6 +88,17 @@
                     android:paddingHorizontal="@dimen/activity_default_margin"
                     android:paddingBottom="@dimen/padding_above_fab">
 
+                    <ProgressBar
+                        android:id="@+id/detailProgressBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:elevation="8dp"
+                        app:isGone="@{!viewModel.loading}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <TextView
                         android:id="@+id/detailItemDescription"
                         style="@style/BodyStyle"
@@ -168,16 +179,6 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
-
-            <ProgressBar
-                android:id="@+id/detailProgressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:isGone="@{!viewModel.loading}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.motion.widget.MotionLayout>
 

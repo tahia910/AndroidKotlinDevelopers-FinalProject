@@ -19,18 +19,8 @@ class SimilarRepository(
     suspend fun getSimilarMediaList(keywords: String, filter: SimilarItemTypeEnum):
             Result<List<SimilarDTO>> {
         return try {
-            // Define the query and result type.
-            // The doc seems to imply that query and result types could be different,
-            // but after many experimentation, it doesn't seem to be true.
-            var query = ""
-            val keywordList = keywords.split(",")
-            keywordList.forEach { keyword ->
-                if (keyword.trim(' ').isNotBlank()) {
-                    // Format example: "movie:harry potter, movie:trainspotting"
-                    query += "${filter.type}:${keyword.trim(' ')}, "
-                }
-            }
-            query = query.trim(' ', ',').htmlEncode()
+            val query = buildQueryString(keywords, filter)
+
             val response = similarApi.getSuggestions(query = query, filter.query).result
 
             val resultList = response.resultList?.toDtoList() ?: return Result.Success(emptyList())
@@ -47,6 +37,23 @@ class SimilarRepository(
         } catch (ex: Exception) {
             Result.Error(ex.localizedMessage)
         }
+    }
+
+    /**
+     * Define the query and result type.
+     * The doc seems to imply that query and result types could be different,
+     * but after many experimentation, it doesn't seem to be true.
+     */
+    private fun buildQueryString(keywords: String, filter: SimilarItemTypeEnum): String {
+        var query = ""
+        val keywordList = keywords.split(",")
+        keywordList.forEach { keyword ->
+            if (keyword.trim(' ').isNotBlank()) {
+                // Format example: "movie:harry potter, movie:trainspotting"
+                query += "${filter.type}:${keyword.trim(' ')}, "
+            }
+        }
+        return query.trim(' ', ',').htmlEncode()
     }
 
     fun getAllBookmarksLiveData() = bookmarkDao.getAllBookmarksLiveData()
