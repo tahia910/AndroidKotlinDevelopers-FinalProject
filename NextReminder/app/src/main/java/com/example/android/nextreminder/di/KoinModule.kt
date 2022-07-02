@@ -1,6 +1,7 @@
 package com.example.android.nextreminder.di
 
 import android.app.Application
+import com.example.android.nextreminder.data.ImageRepository
 import com.example.android.nextreminder.data.SimilarRepository
 import com.example.android.nextreminder.data.local.LocalDatabase
 import com.example.android.nextreminder.data.network.ApiClient
@@ -19,12 +20,14 @@ object KoinModule {
             androidContext(app)
 
             val module = module {
-                single { ApiClient.retrofitService }
+                single { ApiClient.similarService }
+                single { ApiClient.imageService }
                 single { LocalDatabase.createBookmarkDao(app) }
                 single { SimilarRepository(get(), get()) }
+                single { ImageRepository(get()) }
                 viewModel { MainViewModel(get()) }
                 viewModel { SearchResultViewModel(get()) }
-                viewModel { DetailViewModel(get()) }
+                viewModel { DetailViewModel(get(), get()) }
             }
             modules(listOf(module))
         }

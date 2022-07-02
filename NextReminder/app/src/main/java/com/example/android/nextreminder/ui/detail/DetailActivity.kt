@@ -49,6 +49,11 @@ class DetailActivity : AppCompatActivity() {
         }
         viewModel.setSimilarItem(similarItem)
 
+        binding.detailImageGridView.adapter = ImageListAdapter()
+        setObservers()
+    }
+
+    private fun setObservers() {
         viewModel.displayErrorToast.observe(this) { messageStringResource ->
             if (messageStringResource == null) return@observe
             Toast.makeText(this, messageStringResource, Toast.LENGTH_SHORT).show()

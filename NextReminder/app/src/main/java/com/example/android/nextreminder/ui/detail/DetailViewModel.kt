@@ -5,16 +5,25 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.android.nextreminder.R
+import com.example.android.nextreminder.data.ImageDTO
+import com.example.android.nextreminder.data.ImageRepository
 import com.example.android.nextreminder.data.SimilarDTO
 import com.example.android.nextreminder.data.SimilarRepository
 import com.example.android.nextreminder.data.network.Result
 import kotlinx.coroutines.launch
 
-class DetailViewModel(private val repository: SimilarRepository) : ViewModel() {
+class DetailViewModel(
+    private val similarRepository: SimilarRepository,
+    private val imageRepository: ImageRepository
+) : ViewModel() {
 
     private val _similarItem = MutableLiveData<SimilarDTO>()
     val similarItem: LiveData<SimilarDTO>
         get() = _similarItem
+
+    private val _relatedImageList = MutableLiveData<List<ImageDTO>>()
+    val relatedImageList: LiveData<List<ImageDTO>>
+        get() = _relatedImageList
 
     fun setSimilarItem(similarItem: SimilarDTO) {
         // If the user had changed the bookmark status before a configuration change, this
@@ -25,6 +34,7 @@ class DetailViewModel(private val repository: SimilarRepository) : ViewModel() {
 
     val loading = MutableLiveData(false)
 
+    //region Bookmark
     fun addOrRemoveBookmark() {
         _similarItem.value?.let { item ->
             if (item.isBookmarked) removeBookmark(item) else addBookmark(item)
@@ -32,9 +42,11 @@ class DetailViewModel(private val repository: SimilarRepository) : ViewModel() {
     }
 
     private fun removeBookmark(item: SimilarDTO) {
+        if (loading.value == true) return
         loading.postValue(true)
+
         viewModelScope.launch {
-            val result = repository.removeBookmark(item)
+            val result = similarRepository.removeBookmark(item)
             when (result) {
                 is Result.Success<*> -> {
                     val new = _similarItem.value?.copy(isBookmarked = false)
@@ -50,9 +62,11 @@ class DetailViewModel(private val repository: SimilarRepository) : ViewModel() {
     }
 
     private fun addBookmark(item: SimilarDTO) {
+        if (loading.value == true) return
         loading.postValue(true)
+
         viewModelScope.launch {
-            val result = repository.addBookmark(item)
+            val result = similarRepository.addBookmark(item)
 
             when (result) {
                 is Result.Success<*> -> {
@@ -65,6 +79,35 @@ class DetailViewModel(private val repository: SimilarRepository) : ViewModel() {
                     _displayErrorToast.postValue(R.string.error_adding_bookmark)
                 }
             }
+        }
+    }
+    //endregion
+
+    fun getRelatedImages() {
+        if (loading.value == true) return
+        loading.value = true
+
+        viewModelScope.launch {
+            val keywords = "${_similarItem.value?.name} ${_similarItem.value?.type}"
+            if (keywords.trim().isBlank()) {
+                loading.postValue(false)
+                _displayErrorToast.postValue(R.string.error_detail_image_no_keywords)
+                return@launch
+            }
+
+            val result = imageRepository.getRelatedImages(keywords)
+            when (result) {
+                is Result.Success<*> -> {
+                    val imageList = result.data as List<ImageDTO>
+                    _relatedImageList.postValue(imageList)
+                    loading.postValue(false)
+                }
+                is Result.Error -> {
+                    loading.postValue(false)
+                    _displayErrorToast.postValue(R.string.error_detail_image_not_found)
+                }
+            }
+
         }
     }
 

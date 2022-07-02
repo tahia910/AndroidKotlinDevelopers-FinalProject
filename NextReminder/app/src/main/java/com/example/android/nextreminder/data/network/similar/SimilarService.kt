@@ -1,11 +1,12 @@
-package com.example.android.nextreminder.data.network
+package com.example.android.nextreminder.data.network.similar
 
+import com.example.android.nextreminder.data.network.SimilarResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface SimilarService {
 
-    @GET("similar")
+    @GET("api/similar")
     suspend fun getSuggestions(
         @Query("q") query: String,
         @Query("type") type: String,

@@ -45,12 +45,14 @@
     <string name="detail_wikipedia"><u>Wikipedia</u></string>
     <string name="detail_youtube"><u>Youtube</u></string>
     <string name="detail_fab">Bookmark</string>
+    <string name="detail_images">Related Images</string>
 
     <!-- Accessibility -->
     <string name="content_description_type">Type: %1$s</string>
     <string name="content_description_add_bookmark">Add bookmark for %1$s</string>
     <string name="content_description_remove_bookmark">Remove bookmark for %1$s</string>
     <string name="content_description_close">Close details</string>
+    <string name="content_description_grid_image">Image %1$s</string>
 
     <!-- Common error message-->
     <string name="error_empty_keyword">Error: you can\'t search without keyword(s)!</string>
@@ -61,6 +63,8 @@
     <string name="error_adding_bookmark">Error adding the bookmark</string>
     <string name="error_no_bookmarks">No bookmarks yet</string>
     <string name="error_detail_extra_parsing">Error retrieving the details</string>
+    <string name="error_detail_image_no_keywords">Nothing to search about</string>
+    <string name="error_detail_image_not_found">No images found</string>
 
     <!-- Transition (used with android:transitionName attribute on origin & destination) -->
     <string name="transition_item_title">itemTitle</string>

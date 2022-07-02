@@ -3,7 +3,7 @@ package com.example.android.nextreminder.data
 import androidx.core.text.htmlEncode
 import com.example.android.nextreminder.data.local.BookmarkDao
 import com.example.android.nextreminder.data.network.Result
-import com.example.android.nextreminder.data.network.SimilarService
+import com.example.android.nextreminder.data.network.similar.SimilarService
 import com.example.android.nextreminder.data.network.toDtoList
 
 class SimilarRepository(

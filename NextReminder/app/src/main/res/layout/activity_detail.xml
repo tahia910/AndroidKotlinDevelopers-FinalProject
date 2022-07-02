@@ -130,6 +130,42 @@
                         app:layout_constraintTop_toBottomOf="@id/detailItemDescription"
                         app:url="@{viewModel.similarItem.youtubeVideoUrl}" />
 
+                    <!-- https://hitsandroidtutorialpoint.blogspot.com/2019/01/what-is-barrier-in-constraintlayout.html -->
+                    <androidx.constraintlayout.widget.Barrier
+                        android:id="@+id/detailBarrier"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:barrierDirection="bottom"
+                        app:constraint_referenced_ids="itemWikipedia, itemYoutube" />
+
+                    <Button
+                        android:id="@+id/detailRelatedImage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/padding_medium"
+                        android:onClick="@{() -> viewModel.getRelatedImages()}"
+                        android:text="@string/detail_images"
+                        app:isGone="@{viewModel.similarItem == null || viewModel.relatedImageList.size != 0}"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/detailBarrier" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/detailImageGridView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="@dimen/padding_medium"
+                        app:bindGridData="@{viewModel.relatedImageList}"
+                        app:isGone="@{viewModel.similarItem == null || viewModel.relatedImageList.size == 0}"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/detailBarrier"
+                        app:spanCount="3"
+                        tools:itemCount="9"
+                        tools:listitem="@layout/grid_image_item" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.core.widget.NestedScrollView>
 

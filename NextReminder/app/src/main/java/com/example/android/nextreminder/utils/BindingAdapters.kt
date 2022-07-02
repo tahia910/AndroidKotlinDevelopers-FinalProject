@@ -6,15 +6,25 @@ import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.android.nextreminder.R
+import com.example.android.nextreminder.data.ImageDTO
 import com.example.android.nextreminder.data.SimilarDTO
 import com.example.android.nextreminder.data.SimilarItemTypeEnum
 import com.example.android.nextreminder.data.SimilarItemTypeEnum.*
 import com.example.android.nextreminder.ui.SimilarListAdapter
+import com.example.android.nextreminder.ui.detail.ImageListAdapter
 
 @BindingAdapter("bindListData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<SimilarDTO>?) {
     val adapter = recyclerView.adapter as SimilarListAdapter
+    adapter.submitList(data)
+}
+
+@BindingAdapter("bindGridData")
+fun bindGridView(gridView: RecyclerView, data: List<ImageDTO>?) {
+    if (data.isNullOrEmpty()) return
+    val adapter = gridView.adapter as ImageListAdapter
     adapter.submitList(data)
 }
 
@@ -57,4 +67,14 @@ fun setTypeIcon(view: ImageView, type: SimilarItemTypeEnum) {
         PODCAST -> R.drawable.ic_radio
     }
     view.setImageResource(icon)
+}
+
+@BindingAdapter("image")
+fun setGridImage(view: ImageView, url: String) {
+    Glide.with(view.context)
+        .load(url)
+        .placeholder(R.drawable.ic_image)
+        .error(R.drawable.ic_image_error)
+        .centerCrop()
+        .into(view)
 }
